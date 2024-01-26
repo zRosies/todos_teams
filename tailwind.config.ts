@@ -14,23 +14,26 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        primary: "#c6531f",
-        primaryLight: "#f9e8d5",
-        primaryDark: "#b14716",
-        secondary: "#078ab4",
-        secondaryBlue: "#037ca3",
-        secondaryLight: "#b4e1ef",
-        secondaryDark: "#037297",
-        linkColor: "#1e75c6",
-        $neutral0: "#ffffff",
-        $neutral1: "#ededed",
-        $neutral2: "#d9d9d9",
-        $neutral3: "#b1b1b1",
-        $neutral4: "#515151",
-        $neutral5: "#212020",
+        primary: "#7573D7",
+        secondary: "#151515",
+        grayzy: "#19192A",
+      },
+    },
+    animation: {
+      slide: "slide 5s linear infinite",
+    },
+    keyframes: {
+      slide: {
+        "0%": {
+          transform: "translateX(0)",
+        },
+        "100%": {
+          transform: "translateX(-100%)",
+        },
       },
     },
   },
+
   plugins: [],
 };
 export default config;

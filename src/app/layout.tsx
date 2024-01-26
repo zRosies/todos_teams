@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <AuthProvider session={session}>
           <Header />
-          <main className="max-w-[1920px] w-[100%]  mx-auto mt-14">
+          <main className="max-w-[1920px] w-[100%]  mx-auto mt-14 px-5">
             {children}
           </main>
           <Footer />

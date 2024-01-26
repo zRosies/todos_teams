@@ -14,27 +14,15 @@ const Navigation = () => {
   return (
     <>
       <nav className="flex items-center mr-4">
-        <ul className="flex justify-between gap-4 items-center">
-          <LinkButton
-            href="/started"
-            text="Get Started"
-            style={"font-bold"}
-          ></LinkButton>
-          {}
+        <ul>
           {session.status !== "authenticated" && (
-            <LinkButton
+            <Link
               href="/login"
-              text="Sign in"
-              style={"font-bold"}
-            ></LinkButton>
+              className="flex text-white gap-4 items-center p-2 bg-primary bg rounded-[15px] w-[100px] text-center self-center justify-center "
+            >
+              Sign in
+            </Link>
           )}
-          <LinkButton
-            href="/shop"
-            text="Shop"
-            style={
-              "bg-black text-white px-[24px] py-[7px] rounded-[20px] hover:bg-neutral-800 duration-200  font-bold"
-            }
-          ></LinkButton>
         </ul>
         {session.status === "authenticated" && (
           <span

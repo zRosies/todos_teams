@@ -16,8 +16,8 @@ const Header = () => {
           </Link>
 
           <div className="hidden md:block">
-            <p>Task</p>
-            <p>Master</p>
+            <p>To</p>
+            <p>Do</p>
           </div>
         </div>
         <Navigation />
