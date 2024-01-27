@@ -1,14 +1,10 @@
 "use client";
 import Image from "next/image";
-import variables from "@/app/styles/variables.module.scss";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
-import LoginForm from "./components/loginForm";
-
-import type { Metadata } from "next";
+import { useSession } from "next-auth/react";
 import BrandCarousel from "./components/brandCarousel";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const session = useSession();

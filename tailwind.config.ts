@@ -34,6 +34,8 @@ const config: Config = {
     },
     animation: {
       slide: "slide 15s infinite linear ",
+      navOpen: "navOpen .4s linear",
+      navClosed: "navClosed .2s linear",
     },
     keyframes: {
       slide: {
@@ -42,6 +44,28 @@ const config: Config = {
         },
         "100%": {
           transform: "translateX(-900%)",
+        },
+      },
+      navOpen: {
+        "0%": {
+          width: "0%",
+          opacity: "0",
+          display: "flex",
+        },
+        "100%": {
+          width: "100%",
+          opacity: "1",
+        },
+      },
+      navClosed: {
+        "0%": {
+          width: "80%",
+          opacity: "1",
+        },
+        "100%": {
+          width: "0%",
+          visibility: "hidden",
+          opacity: "0",
         },
       },
     },

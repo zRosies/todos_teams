@@ -1,21 +1,16 @@
 "use client";
 import Link from "next/link";
-import LinkButton from "./linkButton";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { RiLogoutBoxRFill } from "react-icons/ri";
-import { getServerSession } from "next-auth";
-import { CiMenuFries } from "react-icons/ci";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { useState } from "react";
+import DashboardNav from "./dashboardNav";
 
 const Navigation = () => {
   const session = useSession();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState("animate-navClosed");
 
-  // console.log(session.data?.user?.email);
-  // console.log(session);
   const handleMenuOpen = () => {
-    setMenuOpen((prevState: any) => setMenuOpen(!prevState));
+    setMenuOpen("animate-navOpen");
   };
 
   return (
@@ -32,19 +27,15 @@ const Navigation = () => {
           )}
         </ul>
         {session.status === "authenticated" && (
-          // <span
-          //   className="flex items-center mx-2 hover:underline cursor-pointer text-primary"
-          //   onClick={() => {
-          //     signOut();
-          //   }}
-          // >
-          //   Log out <RiLogoutBoxRFill className="w-6 h-10" />
-          // </span
-
           <span onClick={handleMenuOpen}>
-            <HiMenuAlt3 className="w-8 h-8 text-primary " />
+            <HiMenuAlt3 className="w-8 h-8 text-primary cursor-pointer" />
           </span>
         )}
+
+        <DashboardNav
+          animationType={menuOpen}
+          setNavigationOpen={setMenuOpen}
+        />
       </nav>
     </>
   );
