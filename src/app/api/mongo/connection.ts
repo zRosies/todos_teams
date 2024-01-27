@@ -6,7 +6,7 @@ export async function initDb() {
   try {
     const client = new MongoClient(uri);
     const connection = await client.connect();
-    const data = connection.db("handcraft").collection("handcraft");
+    const data = connection.db("todo").collection("todos");
 
     return data;
   } catch (error) {
@@ -21,7 +21,7 @@ export async function initClientDB() {
   try {
     const client = new MongoClient(uri);
     const connection = await client.connect();
-    const data = connection.db("handcraft").collection("clients");
+    const data = connection.db("todo").collection("users");
 
     return data;
   } catch (error) {

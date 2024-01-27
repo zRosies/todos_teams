@@ -1,10 +1,6 @@
 "use client";
-import { signIn } from "next-auth/react";
-import { FaGithub } from "react-icons/fa";
-import Link from "next/link";
-import GoogleIcon from "./icons/googleIcon";
+
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
@@ -16,7 +12,7 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    console.log(email, password);
+    // console.log(email, password);
     try {
       const response = await fetch("/api/register", {
         method: "POST",
@@ -29,7 +25,7 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
         }),
       });
 
-      console.log(response);
+      // console.log(response);
 
       if (response.status === 400) {
         setError("This email is already in use. Please try again");
@@ -39,7 +35,7 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
         setRegOpen(false);
       }
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 

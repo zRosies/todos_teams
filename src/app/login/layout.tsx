@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
-  title: "Login | Handcrafted Haven",
-  description: "Handcrafted Haven website, login in and post your arts",
+  title: "Login | Todo",
+  description: "Todo website, log in and  start organizing your day.",
 };
 
 const LoginLayout = ({ children }: any) => {

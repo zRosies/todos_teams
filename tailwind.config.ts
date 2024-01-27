@@ -12,15 +12,28 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-to-r": "linear-gradient(to right, var(--tw-gradient-stops))",
+        "gradient-to-l": "linear-gradient(to left, var(--tw-gradient-stops))",
+        "gradient-to-t": "linear-gradient(to top, var(--tw-gradient-stops))",
+        "gradient-to-b": "linear-gradient(to bottom, var(--tw-gradient-stops))",
+
+        // carouselRight: "linear-gradient(180deg, rgba(255,255,255,0))",
+      },
+      backgroundColor: {
+        // "carousel-left": "linear-gradient(to left, rgba(255,0,0))",
+        carouselRight: "radial-gradient(var(--tw-gradient-stops))",
       },
       colors: {
         primary: "#7573D7",
         secondary: "#151515",
+        hover: "#615ECC",
         grayzy: "#19192A",
+        link: "#52A9AE",
+        test: "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
     animation: {
-      slide: "slide 5s linear infinite",
+      slide: "slide 15s infinite linear ",
     },
     keyframes: {
       slide: {
@@ -28,7 +41,7 @@ const config: Config = {
           transform: "translateX(0)",
         },
         "100%": {
-          transform: "translateX(-100%)",
+          transform: "translateX(-900%)",
         },
       },
     },

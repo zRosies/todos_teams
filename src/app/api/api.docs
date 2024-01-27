@@ -1,57 +1,32 @@
-Product Info
 
+#GET ALL users
+/api/todos
 
-GET  ALL
-/api/product
+# GET user By Id
+/api/todos/{userId}  
 
-GET BY ID
-/api/product/[sellerIdHere]
+# POST todo  
+/api/todos/{userId} 
 
-POST 
-/api/product
- body  = productSchema
+#DELETE todo
+/api/todos/{todoId} 
 
-DELETE
-/api/product/[_id] << this is the id from the mongodb, not the sellerID
-
-PUT
-/api/product/[_id] << this is the id from the mongodb, not the sellerID
- body  = productSchema
-
----------------------------------------------------------------------------
-
-Review
-
-
-/api/review/[_id] << this is the id from the mongodb, not the sellerID
-body:{ "title": " ", "text": " ", "rating": 0}
+#PUT todo
+/api/todos/{todoId} 
 
 
 
 
-productSchema = {
-      "_id": "65ab2d29899906bb77f3f62a",
-      "sellerId": "c34232",
-      "title": "Outcome",
-      "description": "Description of Outcome",
-      "price": 200,
-      "rating": 5,
-      "category": "Good",
-      "image_url": "https://res.cloudinary.com/dygktir99/image/upload/f_auto,q_auto/zhbxaetjun2tyjixxzls",
-      "seller": {
-        "first_name": "Lola",
-        "last_name": "Paloza",
-        "description": "seller description",
-        "level": "NC"
-      },
-      "reviews": [
-        {
-          "title": "Amazing",
-          "text": "I liked a lot",
-          "rating": 5
-        }
-      ]
-    }
 
 
-    modules installed bycript
+[ 
+  {objct: id
+
+    userId: "ds2324",
+    todos:[
+      {todoId:'123', title:'aaaa', description: 'aaaaaaaa', completed: false, priority: 1, category: 'personal development},
+    ]
+  }
+
+]
+

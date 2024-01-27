@@ -44,11 +44,33 @@ export default function LoginForm({
   };
   return (
     <>
+      <h1 className="font-bold text-[3rem] p-5 lg:text-center mb-20">Login</h1>
+
+      <button
+        type="button"
+        onClick={() => {
+          signIn("github");
+        }}
+        className="bg-black hover:bg-[#242424] duration-200 p-2 flex items-center justify-center gap-2 rounded-[5px] my-2 cursor-pointer max-w-[420px] mx-auto w-full"
+      >
+        <FaGithub className="stroke-white text-white w-[30px] h-[30px]" />{" "}
+        <span className="text-white"> Sign in with Github</span>
+      </button>
+      <button
+        // href={"/"}
+        type="button"
+        className="bg-neutral-100 p-2 flex items-center justify-center gap-2 rounded-[5px] mt-4 cursor-pointer max-w-[420px] mx-auto w-full"
+        onClick={() => {
+          signIn("google");
+        }}
+      >
+        <GoogleIcon />
+        <span> Log in with Google</span>
+      </button>
       <form
-        className="flex flex-col lg:shadow-md  max-w-[450px] mx-auto rounded-sm px-10 py-5"
+        className="flex flex-col max-w-[500px] mx-auto px-10 py-5 pb-20"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-center font-bold text-[1.5rem]">Login</h1>
         <label htmlFor="username"></label>
         <input
           type="text"
@@ -69,42 +91,23 @@ export default function LoginForm({
         ></input>
         <button
           type="submit"
-          className="bg-secondary hover:bg-secondaryBlue duration-200 p-3 text-white"
+          className="bg-hover hover:bg-primary hover:bg-secondaryBlue duration-200 p-3 text-white rounded-sm"
         >
           Login
         </button>
-        {error && <span className="text-red-400">{error}</span>}
-        <p className="text-center my-2">
+        <div className="text-center my-2">
+          <p className="text-$neutral3 text-center my-1">or</p>
           Do not have an account?{" "}
           <a
-            className="text-linkColor cursor-pointer hover:underline"
+            className="text-linkColor cursor-pointer hover:underline text-link"
             onClick={() => {
               setRegisOpen(true);
             }}
           >
             Sign up
           </a>
-        </p>
-        <p className="text-$neutral3 text-center my-1">or</p>
-        <p
-          onClick={() => {
-            signIn("github");
-          }}
-          className="bg-black hover:bg-[#242424] duration-200 p-2 flex items-center justify-center gap-2 rounded-[5px] my-2 cursor-pointer"
-        >
-          <FaGithub className="stroke-white text-white w-[30px] h-[30px]" />{" "}
-          <span className="text-white"> Sign in with Github</span>
-        </p>
-        <p
-          // href={"/"}
-          className="bg-neutral-100 p-2 flex items-center justify-center gap-2 rounded-[5px] mt-4 cursor-pointer"
-          onClick={() => {
-            signIn("google");
-          }}
-        >
-          <GoogleIcon />
-          <span> Log in with Google</span>
-        </p>
+        </div>
+        {error && <span className="text-red-400">{error}</span>}
       </form>
     </>
   );
