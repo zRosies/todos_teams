@@ -2,7 +2,7 @@
 import { signIn, useSession } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
-import GoogleIcon from "./icons/googleIcon";
+import GoogleIcon from "../icons/googleIcon";
 import { useEffect, useState } from "react";
 
 export default function LoginForm({

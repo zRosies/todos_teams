@@ -36,6 +36,7 @@ const config: Config = {
       slide: "slide 15s infinite linear ",
       navOpen: "navOpen .4s linear",
       navClosed: "navClosed .2s linear",
+      cardOpen: "navOpen .3s linear",
     },
     keyframes: {
       slide: {

@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import LoginForm from "../components/loginForm";
+import LoginForm from "../ui/login/loginForm";
 import { Metadata } from "next";
-import RegisterForm from "../components/registerForm";
+import RegisterForm from "../ui/login/registerForm";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";

@@ -1,4 +1,4 @@
-import LogoWhite from "../components/icons/logoWhite";
+import LogoWhite from "../ui/icons/logoWhite";
 
 const Footer = () => {
   return (

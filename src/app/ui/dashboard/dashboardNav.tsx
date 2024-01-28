@@ -10,13 +10,7 @@ import { useRouter } from "next/navigation";
 const DashboardNav = ({ animationType, setNavigationOpen }: any) => {
   const session = useSession();
   const router = useRouter();
-  console.log(session);
-
-  // useEffect(() => {
-  //   if (session.user === "authenticated") {
-  //     router.push("/");
-  //   }
-  // });
+  // console.log(session);
 
   return (
     <>

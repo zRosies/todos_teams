@@ -3,7 +3,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { useState } from "react";
-import DashboardNav from "./dashboardNav";
+import DashboardNav from "@/app/ui/dashboard/dashboardNav";
 
 const Navigation = () => {
   const session = useSession();

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import BrandCarousel from "./components/brandCarousel";
+import BrandCarousel from "./ui/brandCarousel";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 

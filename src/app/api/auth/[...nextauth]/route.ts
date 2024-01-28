@@ -50,7 +50,7 @@ export const authOptions: any = {
       // console.log("session" + JSON.stringify(session));
       // console.log(JSON.stringify(token));
       if (session?.user) {
-        session.user.sellerId = token.sub;
+        session.user.userId = token.sub;
       }
 
       return session;
