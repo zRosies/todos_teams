@@ -14,10 +14,12 @@ export async function getAllTodos() {
 }
 
 export async function getTodosById(userId: any) {
+  console.log(userId);
+
   try {
     const data = await initDb();
-    const arts = await data.find({ userId: userId }).toArray();
-    return arts;
+    const todos = await data.find({ userId: userId }).toArray();
+    return todos;
   } catch (error) {
     return { error: `${error}failed to fetch arts` };
   }

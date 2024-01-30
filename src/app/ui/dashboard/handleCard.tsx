@@ -1,13 +1,13 @@
 import { MdFlag } from "react-icons/md";
 
-const TodoCard = ({
-  type,
+const HandleTodoCard = ({
+  buttonType,
   userId,
-  openCard,
+  setCardOpen,
 }: {
-  type: string;
+  buttonType: string;
   userId: string;
-  openCard: any;
+  setCardOpen: any;
 }) => {
   const handleAddTask = async (e: any) => {
     e.preventDefault();
@@ -44,12 +44,12 @@ const TodoCard = ({
 
   return (
     <>
-      <div
+      {/* <div
         className="absolute left-0 top-0 bg-[rgba(0,0,0,0.6)] w-full h-full z-0"
         onClick={() => openCard(false)}
-      ></div>
+      ></div> */}
       <form
-        className="max-w-[350px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-full shadow-lg z-50 relative bg-white animate-cardOpen"
+        className="max-w-[400px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-[320px] md:w-[430px] left-[2rem] shadow-lg z-50 absolute bg-white animate-cardOpen"
         onSubmit={handleAddTask}
       >
         <label htmlFor="title">
@@ -96,17 +96,28 @@ const TodoCard = ({
         </div>
 
         <div className="w-full flex gap-5 mt-5">
-          <button
-            className={`p-2 w-full rounded-[4px] ${
-              type === "add"
-                ? "bg-slate-100 hover:bg-slate-200 duration-200"
-                : "bg-red-400 hover:bg-red-300"
-            }`}
-          >
-            {type === "add" ? <span>Cancel</span> : <span>Remove</span>}
-          </button>
+          {buttonType === "add" ? (
+            <>
+              <button
+                type="button"
+                className={`p-2 w-full rounded-[4px]bg-slate-100 hover:bg-slate-200 duration-200`}
+                onClick={() => {
+                  setCardOpen(false);
+                }}
+              >
+                Cancel
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              className={`p-2 w-full rounded-[4px]bg-slate-100 bg-red-300 hover:bg-red-200 duration-200`}
+            >
+              Remove
+            </button>
+          )}
           <button className="bg-hover text-white w-full p-2 rounded-[4px] hover:bg-primary duration-200">
-            {type === "add" ? <span>Add</span> : <span>Update</span>}
+            {buttonType === "add" ? <span>Add</span> : <span>Update</span>}
           </button>
         </div>
       </form>
@@ -114,4 +125,4 @@ const TodoCard = ({
   );
 };
 
-export default TodoCard;
+export default HandleTodoCard;
