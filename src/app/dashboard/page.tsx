@@ -16,7 +16,7 @@ const DashboardBody = (props: any) => {
   const session = useSession();
   const router = useRouter();
   const [cardOpen, setCardOpen] = useState(false);
-  const [todos, setTodos] = useState([]);
+  // const [todos, setTodos] = useState([]);
 
   useEffect(() => {
     if (session.status === "unauthenticated") {
@@ -24,35 +24,32 @@ const DashboardBody = (props: any) => {
     }
   }, []);
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      let userId;
+  // useEffect(() => {
+  //   const fetchTodos = async () => {
+  //     let userId;
 
-      while (session?.status === "loading") {
-        await new Promise((resolve) => setTimeout(resolve, 200)); // wait for 100ms before checking again
-      }
+  //     while (session?.status === "loading") {
+  //       await new Promise((resolve) => setTimeout(resolve, 200)); // wait for 100ms before checking again
+  //     }
 
-      //@ts-ignore
-      userId = session?.data?.user.userId;
-      const { data } = await getData({ userId });
-      setTodos(data[0].todos);
-    };
+  //     //@ts-ignore
+  //     userId = session?.data?.user.userId;
+  //     const { data } = await getData({ userId });
+  //     setTodos(data[0].todos);
+  //   };
 
-    fetchTodos();
-  }, [session]);
+  //   fetchTodos();
+  // }, [session]);
 
   // console.log(todos);
 
-  console.log(todos);
+  // console.log(todos);
 
   return (
     <>
       <section className="max-w-[800px] mx-auto px-5 ">
         <h1 className=" text-[2rem] my-5 font-extrabold">Inbox</h1>
         {/* ------------------------------------- Todos here ---------------------------------- */}
-        <Todos data={todos} />
-
-        {/* <Todos /> */}
 
         {/*-----------------------------------Button Add tasks here ---------------------------- */}
         <div className="relative">

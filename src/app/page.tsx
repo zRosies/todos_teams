@@ -11,7 +11,8 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     if (session?.status === "authenticated") {
-      router.push("/dashboard");
+      //@ts-ignore
+      router.push(`/dashboard/${session.data.user.userId}`);
     }
   });
   return (
