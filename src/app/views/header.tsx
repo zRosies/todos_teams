@@ -1,11 +1,9 @@
 "use client";
 import Navigation from "@/app/ui/navigation/navigation";
-import Logo from "../ui/icons/logo";
 import Link from "next/link";
-import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+
 
 const Header = () => {
   const session = useSession();

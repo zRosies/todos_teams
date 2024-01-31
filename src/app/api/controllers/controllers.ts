@@ -73,7 +73,7 @@ export async function postTodosById(id: any, body: any) {
 
     //Checking if and ID associated exists, if not, add the json with the user ID.
     const matchingId = await data.findOne({ userId: id });
-    const firstTime = { userId: id, todos: [body] };
+    const firstTime = { userId: id, todos: body };
 
     if (!matchingId) {
       const result = await data.insertOne(firstTime);
@@ -84,7 +84,7 @@ export async function postTodosById(id: any, body: any) {
 
     const response = await data.updateOne(
       { userId: id },
-      { $push: { todos: { $each: [body] } } }
+      { $set: { todos: body } }
     );
 
     return response;

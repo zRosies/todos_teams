@@ -5,16 +5,16 @@ import { MdFlag } from "react-icons/md";
 const HandleCard = ({
   userId,
   setCardOpen,
-  setSubmitted,
+  setTodos,
+  todos,
 }: {
   userId: string;
   setCardOpen: any;
   todoId?: string;
-  setSubmitted: Function;
+  setTodos: Function;
+  todos: any;
 }) => {
-  const [response, setResponse] = useState(false);
-
-  const handleAddTask = async (e: any, type = "add") => {
+  const handleAddTask = async (e: any) => {
     e.preventDefault();
     const title = e.target[0].value;
     const description = e.target[1].value;
@@ -30,23 +30,8 @@ const HandleCard = ({
       completed: false,
     };
 
-    // console.log(payload);
-
-    const response = await fetch(`/api/todos/${userId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-    console.log(response);
-
-    if (response?.status === 200) {
-      console.log("it worked");
-      setResponse(true);
-      return;
-    }
-    console.log("Failed");
+    setTodos([...todos, payload]);
+    setCardOpen(false);
   };
 
   return (
@@ -116,22 +101,11 @@ const HandleCard = ({
           <button
             className="bg-hover text-white w-full p-2 rounded-[4px] hover:bg-primary duration-200"
             type="submit"
-            onClick={() => setSubmitted((prev: boolean) => !prev)}
+            // onClick={() => setSubmitted((prev: boolean) => !prev)}
           >
             Add
           </button>
         </div>
-        {response && (
-          <div className="absolute bg-white rounded-md p-5 gap-2 flex flex-col justify-center items-center min-w-[300px] shadow-black shadow-sm h-[200px] lef-[50%]">
-            <p className="text-center">Todo added successfuly</p>
-            <button
-              className="bg-hover p-2 text-white shadow-sm w-[80%] rounded-sm text-center"
-              onClick={() => setCardOpen(false)}
-            >
-              okay
-            </button>
-          </div>
-        )}
       </form>
     </>
   );
