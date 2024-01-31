@@ -14,7 +14,7 @@ export async function getAllTodos() {
 }
 
 export async function getTodosById(userId: any) {
-  console.log(userId);
+  // console.log(userId);
 
   try {
     const data = await initDb();
@@ -38,7 +38,7 @@ export async function getTodosById(userId: any) {
 export async function deleteTodoById(todoId: any) {
   try {
     const data = await initDb();
-    console.log(todoId);
+    // console.log(todoId);
 
     // You can use strings to get the item inside the schema or you can put the array like in the post function.
 

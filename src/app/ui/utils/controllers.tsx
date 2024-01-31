@@ -3,9 +3,7 @@ import { useSession } from "next-auth/react";
 export async function fetchUserTodos(userId: string) {
   //   const session = useSession();
 
-  console.log("----------------------------------");
   const response: any = await fetch(`api/todos/${userId}`);
-  console.log("----------------------------------");
 
   console.log(response);
 

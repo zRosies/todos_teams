@@ -15,7 +15,7 @@ import { getData } from "../utils/utils";
 const DashboardBody = (props: any) => {
   const session = useSession();
   const router = useRouter();
-  const [cardOpen, setCardOpen] = useState(false);
+
   // const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -24,57 +24,12 @@ const DashboardBody = (props: any) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const fetchTodos = async () => {
-  //     let userId;
-
-  //     while (session?.status === "loading") {
-  //       await new Promise((resolve) => setTimeout(resolve, 200)); // wait for 100ms before checking again
-  //     }
-
-  //     //@ts-ignore
-  //     userId = session?.data?.user.userId;
-  //     const { data } = await getData({ userId });
-  //     setTodos(data[0].todos);
-  //   };
-
-  //   fetchTodos();
-  // }, [session]);
-
-  // console.log(todos);
-
-  // console.log(todos);
-
   return (
     <>
       <section className="max-w-[800px] mx-auto px-5 ">
-        <h1 className=" text-[2rem] my-5 font-extrabold">Inbox</h1>
         {/* ------------------------------------- Todos here ---------------------------------- */}
 
         {/*-----------------------------------Button Add tasks here ---------------------------- */}
-        <div className="relative">
-          <button
-            className="flex items-center gap-2 my-5 relative"
-            onClick={() => setCardOpen(true)}
-          >
-            <div className=" max-w-[50px] bg-hover hover:bg-primary duration-200 p-3 flex">
-              <FaPlus className="text-white w-5 h-5" />
-            </div>
-            <span className=" font-extrabold">Add Task</span>
-          </button>
-          {/*----------------------------------- Add tasks here ---------------------------- */}
-          {cardOpen && (
-            <HandleTodoCard
-              buttonType={"add"}
-              /* @ts-ignore */
-              userId={session?.data?.user?.userId}
-              setCardOpen={setCardOpen}
-            />
-          )}
-        </div>
-
-        <h2 className="font-bold ">Completed</h2>
-        <p>No task completed yet...</p>
       </section>
       <div className="mb-[200px]"></div>
       {/*  */}

@@ -1,20 +1,28 @@
-"use client";
-import { useState } from "react";
 import { MdFlag } from "react-icons/md";
+import { IoMdCloseCircle } from "react-icons/io";
 
-const HandleCard = ({
+const HandleUpdateTodo = ({
   userId,
-  setCardOpen,
+  setOpenCards,
+  title,
+  description,
+  priority,
+  category,
+  todoId,
   setSubmitted,
 }: {
   userId: string;
-  setCardOpen: any;
-  todoId?: string;
+  setOpenCards: Function;
+  title?: string;
+  description?: string;
+  priority?: string;
+  category?: string;
+  todoId?: any;
   setSubmitted: Function;
 }) => {
-  const [response, setResponse] = useState(false);
+  // console.log(userId, title, description, priority, category, todoId);
 
-  const handleAddTask = async (e: any, type = "add") => {
+  const handleSubmitTodos = async (e: any) => {
     e.preventDefault();
     const title = e.target[0].value;
     const description = e.target[1].value;
@@ -39,15 +47,28 @@ const HandleCard = ({
       },
       body: JSON.stringify(payload),
     });
-    console.log(response);
 
-    if (response?.status === 200) {
+    if (response?.status === 201) {
       console.log("it worked");
-      setResponse(true);
       return;
     }
     console.log("Failed");
   };
+
+  async function HandleDeleteTodo() {
+    const response: any = await fetch(`/api/todos/${todoId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 200) {
+      console.log("deleted successfully");
+    }
+  }
+
+  console.log(todoId);
 
   return (
     <>
@@ -56,15 +77,31 @@ const HandleCard = ({
         onClick={() => openCard(false)}
       ></div> */}
       <form
-        className="max-w-[400px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-[320px] md:w-[430px] left-[2rem] shadow-lg z-50 absolute bg-white animate-cardOpen"
-        onSubmit={handleAddTask}
+        className="max-w-[400px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-[320px] md:w-[430px] left-[2rem] shadow-lg z-50 absolute bg-white animate-cardOpen -top-[2rem]"
+        onSubmit={handleSubmitTodos}
       >
+        <button
+          onClick={() =>
+            setOpenCards((prevOpenCards: any) => ({
+              [userId]: false,
+            }))
+          }
+          type="button"
+          className="text-end self-end"
+        >
+          <IoMdCloseCircle
+            className="text-red-400  mb-5 w-5 h-5"
+            // onClick={setCardOpen(todoId)}
+          />
+        </button>
+
         <label htmlFor="title">
           <input
             type="text"
             name="description"
             id="title"
             placeholder="Title..."
+            defaultValue={title}
             className="w-full border-2 rounded-[4px]"
           />
         </label>
@@ -73,7 +110,8 @@ const HandleCard = ({
             name="description"
             id="title"
             placeholder="Description..."
-            className="w-full border-2 rounded-[4px]"
+            className="w-full border-2 rounded-[4px] h-[8rem]"
+            defaultValue={description}
           />
         </label>
 
@@ -85,6 +123,7 @@ const HandleCard = ({
             name="priority"
             id="priority "
             className=" bg-primary text-white w-full rounded-[4px] p-1 cursor-pointer "
+            defaultValue={priority}
           >
             <option value="none">Priority</option>
             <option value="p1">P1</option>
@@ -95,6 +134,7 @@ const HandleCard = ({
             name="category"
             id="category  "
             className="bg-slate-100 text-primary rounded-[2px] p-1 font-medium cursor-pointer w-full"
+            defaultValue={category}
           >
             <option value="">Category </option>
             <option value="study">Study</option>
@@ -105,36 +145,21 @@ const HandleCard = ({
         <div className="w-full flex gap-5 mt-5">
           <button
             type="button"
-            className={`p-2 w-full rounded-[4px]bg-slate-100 hover:bg-slate-200 duration-200`}
+            className={`p-2 w-full rounded-[4px]bg-slate-100 bg-red-300 hover:bg-red-200 duration-200`}
             onClick={() => {
-              setCardOpen(false);
+              setSubmitted((prev: number) => prev + 1), HandleDeleteTodo();
             }}
           >
-            Cancel
+            Remove
           </button>
 
-          <button
-            className="bg-hover text-white w-full p-2 rounded-[4px] hover:bg-primary duration-200"
-            type="submit"
-            onClick={() => setSubmitted((prev: boolean) => !prev)}
-          >
-            Add
+          <button className="bg-hover text-white w-full p-2 rounded-[4px] hover:bg-primary duration-200">
+            Update
           </button>
         </div>
-        {response && (
-          <div className="absolute bg-white rounded-md p-5 gap-2 flex flex-col justify-center items-center min-w-[300px] shadow-black shadow-sm h-[200px] lef-[50%]">
-            <p className="text-center">Todo added successfuly</p>
-            <button
-              className="bg-hover p-2 text-white shadow-sm w-[80%] rounded-sm text-center"
-              onClick={() => setCardOpen(false)}
-            >
-              okay
-            </button>
-          </div>
-        )}
       </form>
     </>
   );
 };
 
-export default HandleCard;
+export default HandleUpdateTodo;

@@ -1,7 +1,7 @@
-"use server";
+"use client";
 
-import { getTodosById } from "@/app/api/controllers/controllers";
-import Todos from "@/app/ui/dashboard/todos";
+import TodoList from "@/app/ui/dashboard/todoList";
+import { Suspense, useEffect, useState } from "react";
 
 // import todoCard from "@/app/ui/dashboard/todoCard";
 
@@ -13,18 +13,21 @@ export type TodoObject =
       error?: string;
     }
   | any;
-const Dashboard = async (context: any) => {
+const Dashboard = (context: any) => {
   // console.log(todos);
   const { params } = context;
-
-  const data: TodoObject = await getTodosById(params.userId);
-
-  console.log(JSON.stringify(data));
+  const userId = params.userId;
 
   return (
     <>
       <section className="max-w-[800px] mx-auto px-5 ">
-        <Todos data={data[0].todos} />
+        <h1 className=" text-[2rem] my-5 font-extrabold">Inbox</h1>
+        <Suspense fallback={<p>Loading....</p>}>
+          <TodoList userId={userId} />
+        </Suspense>
+        <h2 className="font-bold ">Completed</h2>
+        <p>No task completed yet...</p>
+        <div className="mb-[300px]"></div>
       </section>
     </>
   );

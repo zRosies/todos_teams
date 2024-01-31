@@ -16,7 +16,8 @@ export default function Login() {
 
   useEffect(() => {
     if (session?.status === "authenticated") {
-      router.push("/");
+      //@ts-ignore
+      router.push(`/dashboard/${session.data.user.userId}`);
     }
   });
 
