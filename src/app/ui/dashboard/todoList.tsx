@@ -19,29 +19,13 @@ export interface Todos {
 export function TodoList({ userId, data }: { userId: string; data: any }) {
   const [cardOpen, setCardOpen] = useState(false);
   const [todos, setTodos] = useState<Todos[]>([]);
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     setTodos(data);
-    
   }, []);
 
   useEffect(() => {
-    // const fetchTodos = async () => {
-    //   try {
-    //     const response = await fetch(`/api/todos/${userId}`, {
-    //       method: "GET", // Assuming you want to fetch todos using GET
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     });
-    //     const data = await response.json();
-    //     // Assuming the response is an array of todos
-    //   } catch (error) {
-    //     console.error("Error fetching data:", error);
-    //   }
-    // };
-    // fetchTodos();
     const postTodos = async () => {
       // const todosFromMongo = todosFromDb();
       try {
