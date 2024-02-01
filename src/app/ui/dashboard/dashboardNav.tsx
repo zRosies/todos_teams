@@ -18,7 +18,7 @@ const DashboardNav = ({ animationType, setNavigationOpen }: any) => {
         onClick={() => {
           setNavigationOpen("animate-navClosed");
         }}
-        className={`w-[100%] bg-transparent h-full absolute left-0 top-0 backdrop-blur-[1.8px] z-10 ${
+        className={`w-[100%] bg-[rgba(0,0,0,0.2)] h-full absolute left-0 top-0 backdrop-blur-[1.8px] z-10 ${
           animationType === "animate-navClosed" && "hidden"
         }`}
       ></section>

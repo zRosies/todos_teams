@@ -6,6 +6,8 @@ import { FaPlus } from "react-icons/fa6";
 import HandleTodoCard from "./handleCard";
 import { Suspense, useEffect, useState } from "react";
 import { TodoObject } from "@/app/dashboard/[userId]/page";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 // import axios from "axios";
 export interface Todos {
   todoId: string;
@@ -19,10 +21,15 @@ export interface Todos {
 export function TodoList({ userId, data }: { userId: string; data: any }) {
   const [cardOpen, setCardOpen] = useState(false);
   const [todos, setTodos] = useState<Todos[]>([]);
+  const session = useSession();
+  const router = useRouter();
   // const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     setTodos(data);
+    if (session.status != "authenticated") {
+      router.push("/");
+    }
   }, []);
 
   useEffect(() => {
@@ -44,7 +51,7 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
     };
     // todosFromDb();
     postTodos();
-  }, [todos]);
+  }, [todos, userId]);
 
   console.log(todos);
   // console.log(userId);
@@ -54,7 +61,7 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
   return (
     <>
       <Suspense fallback={<p>Loading....</p>}>
-        <Todos data={todos}></Todos>
+        <Todos data={todos} setTodos={setTodos}></Todos>
       </Suspense>
       <div className="relative">
         <button

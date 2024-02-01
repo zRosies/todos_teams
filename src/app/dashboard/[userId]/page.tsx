@@ -2,7 +2,6 @@
 
 import { getTodosById } from "@/app/api/controllers/controllers";
 import TodoList from "@/app/ui/dashboard/todoList";
-import { Suspense, useEffect, useState } from "react";
 
 // import todoCard from "@/app/ui/dashboard/todoCard";
 

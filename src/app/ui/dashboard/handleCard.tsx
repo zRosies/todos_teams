@@ -37,8 +37,8 @@ const HandleCard = ({
   return (
     <>
       {/* <div
-        className="absolute left-0 top-0 bg-[rgba(0,0,0,0.6)] w-full h-full z-0"
-        onClick={() => openCard(false)}
+        className="absolute left-0 top-0 bg-[rgba(0,0,0,0.6)] w-full h-full z-20"
+        // onClick={() => openCard(false)}
       ></div> */}
       <form
         className="max-w-[400px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-[320px] md:w-[430px] left-[2rem] shadow-lg z-50 absolute bg-white animate-cardOpen"

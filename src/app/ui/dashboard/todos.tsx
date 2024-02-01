@@ -1,64 +1,34 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import { LiaEdit } from "react-icons/lia";
-import HandleTodoCard from "./handleCard";
 import HandleUpdateTodo from "./handleUpdateTodo";
-import { getTodosById } from "@/app/api/controllers/controllers";
 
-export function Todos({ data }: { data: any }) {
-  // useEffect(() => {
-  //   const fetchTodos = async () => {
-  //     try {
-  //       const response = await fetch(`/api/todos/${userId}`, {
-  //         method: "GET", // Assuming you want to fetch todos using GET
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
+export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
+  const [todoOpen, setTodoOpen] = useState([]);
 
-  //       const data = await response.json();
-  //       setTodos(data.data[0].todos); // Assuming the response is an array of todos
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
+  function deleteTodo(todoId: string) {
+    console.log("todoId" + todoId);
 
-  //   fetchTodos();
-  // }, [userId]);
+    setTodos((currentTodos: any[]) => {
+      const data = currentTodos.filter((todo) => {
+        return todo.todoId != todoId;
+      });
+      return data;
 
-  // const data = response.json();
+      // return data;
+    });
+  }
 
-  // try {
-  //   const response = await fetch(`/api/todos/${userId}`, {
-  //     method: "GET", // Assuming you want to fetch todos using GET
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-
-  //   const teste = await response.json();
-  //   // setTodos(teste.teste[0].todos); // Assuming the response is an array of todos
-  //   const data = teste.data[0].todos; // Assuming the response is an array of todos
-  // } catch (error) {
-  //   console.error("Error fetching data:", error);
-  // }
-
-  // const [openCards, setOpenCards] = useState<{ [key: string]: boolean }>({});
-  // const { params } = context;
-  // const userId = params.userId;
-
-  // const todos = await getTodosById(userId);
-
-  // console.log(todos);
-
-  // console.log("dataTodos" + data);
-
+  const openTodoCard = (todoId: string) => {
+    setTodoOpen(data.filter((todo: any) => todo.todoId === todoId));
+  };
   return (
     <>
-      <p>teste</p>
+      {/* <p>teste</p> */}
+
       <section className="flex flex-col w-full relative">
-        {data &&
-          data.length > 0 &&
+        {data && data.length > 0 ? (
           data.map((todo: any) => (
             <form
               key={todo.todoId}
@@ -75,31 +45,29 @@ export function Todos({ data }: { data: any }) {
                 <p>{todo.category}</p>
                 <p>{todo.todoId}</p>
               </div>
-              <button
-                type="button"
-                // onClick={() =>
-                //   setOpenCards(() => ({
-                //     [todo.todoId]: true,
-                //   }))
-                // }
-              >
-                {/* <LiaEdit className="w-6 h-6" />
-                  {openCards[todo.todoId] && (
-                    <HandleUpdateTodo
-                      todoId={todo.todoId}
-                      title={todo.title}
-                      description={todo.description}
-                      priority={todo.priority}
-                      category={todo.category}
-                      userId={userId}
-                      setOpenCards={setOpenCards}
-                      setTodos={setTodos}
-                    />
-                  )} */}
+              <button type="button">
+                <LiaEdit
+                  className="w-6 h-6"
+                  onClick={() => openTodoCard(todo.todoId)}
+                />
               </button>
             </form>
-          ))}
+          ))
+        ) : (
+          <div className="flex justify-center items-center">
+            <h1 className="text-2xl font-bold text-gray-800">
+              No tasks added yet.
+            </h1>
+          </div>
+        )}
       </section>
+      {todoOpen.length > 0 && (
+        <HandleUpdateTodo
+          todo={todoOpen[0]}
+          deleteTodo={deleteTodo}
+          openTodoCard={openTodoCard}
+        />
+      )}
     </>
   );
 }
