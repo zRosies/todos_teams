@@ -26,7 +26,7 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
   function updateTodo(todoId: string, updatedTodo: any) {
     setTodos((currentTodos: any[]) => {
       const data = currentTodos.map((todo) => {
-        if (todo.todoId == todoId) {
+        if (todo.todoId === todoId) {
           return {
             ...todo,
             ...updatedTodo,
@@ -98,8 +98,9 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
                   )}
                 </button>
                 {/* <h1>{`${todo.completed}`}</h1> */}
-                <h1>{todo.title}</h1>
-                <p>{todo.description}</p>
+                <h1 className={`${todo.completed && "line-through"}`}>
+                  {todo.title}
+                </h1>
               </div>
               <button type="button">
                 <LiaEdit

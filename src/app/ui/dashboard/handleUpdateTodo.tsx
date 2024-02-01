@@ -19,12 +19,15 @@ const HandleUpdateTodo = ({
 
   const handleUpdateTodo = (e: any) => {
     e.preventDefault();
-    console.log("teste");
 
-    const title = e.target[0].value;
-    const description = e.target[1].value;
-    const priority = e.target[2].value;
-    const category = e.target[3].value;
+    const title = e.target.elements.title.value;
+    const description = e.target.elements.description.value;
+    const priority = e.target.elements.priority.value;
+    const category = e.target.elements.category.value;
+
+    // console.log("description" + description);
+    // console.log("title" + title);
+    // console.log("title2" + title2);
 
     const updatedTodo = {
       todoId: todo.todoId,
@@ -34,6 +37,8 @@ const HandleUpdateTodo = ({
       category: category,
       completed: todo.completed,
     };
+
+    console.log(updatedTodo);
 
     // console.log(updatedTodo);
 
@@ -65,7 +70,7 @@ const HandleUpdateTodo = ({
         <label htmlFor="title">
           <input
             type="text"
-            name="description"
+            name="title"
             id="title"
             placeholder="Title..."
             defaultValue={todo.title}
@@ -75,7 +80,7 @@ const HandleUpdateTodo = ({
         <label htmlFor="description">
           <textarea
             name="description"
-            id="title"
+            id="description"
             placeholder="Description..."
             className="w-full border-2 rounded-[4px] h-[8rem]"
             defaultValue={todo.description}
@@ -88,7 +93,7 @@ const HandleUpdateTodo = ({
           </span>
           <select
             name="priority"
-            id="priority "
+            id="priority"
             className=" bg-primary text-white w-full rounded-[4px] p-1 cursor-pointer "
             defaultValue={todo.priority}
           >
@@ -99,7 +104,7 @@ const HandleUpdateTodo = ({
           </select>
           <select
             name="category"
-            id="category  "
+            id="category"
             className="bg-slate-100 text-primary rounded-[2px] p-1 font-medium cursor-pointer w-full"
             defaultValue={todo.category}
           >
