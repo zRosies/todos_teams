@@ -88,12 +88,3 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
 }
 
 export default TodoList;
-
-// export async function getData({ userId }: any) {
-//   // Fetch data from external API
-//   const res = await fetch(`http://localhost:3000/api/todos/${userId}`);
-//   const data = await res.json();
-
-//   // Pass data to the page via props
-//   return { props: { data } };
-// }

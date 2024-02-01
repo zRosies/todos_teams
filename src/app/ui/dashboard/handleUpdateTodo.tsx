@@ -8,17 +8,49 @@ const HandleUpdateTodo = ({
   openTodoCard,
   todo,
   deleteTodo,
+  updateTodo,
 }: {
   openTodoCard: any;
   todo: Todos;
   deleteTodo: any;
+  updateTodo: any;
 }) => {
   console.log(todo);
 
+  const handleUpdateTodo = (e: any) => {
+    e.preventDefault();
+    console.log("teste");
+
+    const title = e.target[0].value;
+    const description = e.target[1].value;
+    const priority = e.target[2].value;
+    const category = e.target[3].value;
+
+    const updatedTodo = {
+      todoId: todo.todoId,
+      title: title,
+      description: description,
+      priority: priority,
+      category: category,
+      completed: todo.completed,
+    };
+
+    // console.log(updatedTodo);
+
+    updateTodo(todo.todoId, updatedTodo);
+    openTodoCard([]);
+  };
+
   return (
     <>
-      <div className="absolute left-0 top-0 bg-[rgba(0,0,0,0.4)] w-full h-full z-10"></div>
-      <form className="max-w-[400px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-[320px] md:w-[430px] top-[50%] left-[50%] shadow-lg z-50 absolute bg-white animate-cardOpen  -translate-x-1/2 -translate-y-1/2">
+      <div
+        className="absolute left-0 top-0 bg-[rgba(0,0,0,0.4)] w-full h-full z-10"
+        onClick={() => openTodoCard([])}
+      ></div>
+      <form
+        onSubmit={handleUpdateTodo}
+        className="max-w-[400px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-[320px] md:w-[430px] top-[50%] left-[50%] shadow-lg z-50 absolute bg-white animate-cardOpen  -translate-x-1/2 -translate-y-1/2"
+      >
         <button
           type="button"
           className="text-end self-end"
@@ -88,7 +120,10 @@ const HandleUpdateTodo = ({
             Remove
           </button>
 
-          <button className="bg-hover text-white w-full p-2 rounded-[4px] hover:bg-primary duration-200">
+          <button
+            className="bg-hover text-white w-full p-2 rounded-[4px] hover:bg-primary duration-200"
+            type="submit"
+          >
             Update
           </button>
         </div>
