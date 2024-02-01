@@ -11,8 +11,8 @@ import CompletedIcon from "../icons/completdIcon";
 export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
   const [todoOpen, setTodoOpen] = useState([]);
 
+  //This function returns a new array without the todo selected, in other words it's deleted.
   function deleteTodo(todoId: string) {
-    // console.log("todoId" + todoId);
 
     setTodos((currentTodos: any[]) => {
       const data = currentTodos.filter((todo) => {
@@ -20,7 +20,7 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
       });
       return data;
 
-      // return data;
+    
     });
   }
   function updateTodo(todoId: string, updatedTodo: any) {
@@ -38,22 +38,21 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
     });
   }
 
+  //This function opens the todo according to its id
   const openTodoCard = (todoId: string) => {
     setTodoOpen(data.filter((todo: any) => todo.todoId === todoId));
   };
+
+
+  //This function sets the todo completed based on its Id by returing the field completed different from its previous value.  
 
   function todoCompleted(todoId: string) {
     setTodos((currentTodos: any[]) => {
       const array = currentTodos.map((todo) => {
         if (todo.todoId === todoId) {
-          console.log(todo.completed);
-
-          todo.completed = !todo.completed;
-          console.log("it works");
-
-          return { ...todo, completed: todo.completed };
+          // console.log(todo.completed);
+          return { ...todo, completed: !todo.completed };
         }
-        console.log("failed");
 
         return todo;
       });
@@ -63,8 +62,6 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
 
   return (
     <>
-      {/* <p>teste</p> */}
-
       <section className="flex flex-col w-full relative ">
         {data && data.length > 0 ? (
           data.map((todo: any) => (
@@ -97,7 +94,7 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
                     />
                   )}
                 </button>
-                {/* <h1>{`${todo.completed}`}</h1> */}
+
                 <h1 className={`${todo.completed && "line-through"}`}>
                   {todo.title}
                 </h1>
