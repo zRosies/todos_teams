@@ -6,8 +6,6 @@ import { FaPlus } from "react-icons/fa6";
 import HandleTodoCard from "./handleCard";
 import { Suspense, useEffect, useState } from "react";
 import { TodoObject } from "@/app/dashboard/[userId]/page";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 // import axios from "axios";
 export interface Todos {
   todoId: string;
@@ -21,16 +19,8 @@ export interface Todos {
 export function TodoList({ userId, data }: { userId: string; data: any }) {
   const [cardOpen, setCardOpen] = useState(false);
   const [todos, setTodos] = useState<Todos[]>([]);
-  const session = useSession();
-  const router = useRouter();
-  // const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    setTodos(data);
-    if (session.status !== "authenticated") {
-      router.push("/");
-    }
-  }, []);
+  // const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     const postTodos = async () => {

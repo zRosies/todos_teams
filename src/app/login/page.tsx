@@ -1,33 +1,24 @@
-"use client";
-import Image from "next/image";
-import LoginForm from "../ui/login/loginForm";
-import { Metadata } from "next";
-import RegisterForm from "../ui/login/registerForm";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+"use server";
 
-export default function Login() {
-  const [registerOpen, setRegisOpen] = useState(false);
-  const router = useRouter();
-  const session = useSession();
+import { redirect } from "next/navigation";
+import { ServerComponent } from "../api/auth/[...nextauth]/route";
+import LoginParent from "../ui/login/loginParent";
 
-  // console.log(session);
+export default async function Login() {
+  const session = await ServerComponent();
+  console.log(session);
 
-  useEffect(() => {
-    if (session?.status === "authenticated") {
-      //@ts-ignore
-      router.push(`/dashboard/${session.data.user.userId}`);
-    }
-  });
-
+  if (session != null) {
+    redirect(`/dashboard/${session?.user.userId}`);
+  }
   return (
     <>
-      {registerOpen ? (
+      <LoginParent />
+      {/* {registerOpen ? (
         <RegisterForm setRegOpen={setRegisOpen} />
       ) : (
         <LoginForm router={router} setRegisOpen={setRegisOpen} />
-      )}
+      )} */}
     </>
   );
 }
