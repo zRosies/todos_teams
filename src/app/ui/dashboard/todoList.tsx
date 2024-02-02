@@ -27,7 +27,7 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
 
   useEffect(() => {
     setTodos(data);
-    if (session.status != "authenticated") {
+    if (session.status !== "authenticated") {
       router.push("/");
     }
   }, []);

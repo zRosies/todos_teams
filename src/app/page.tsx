@@ -15,6 +15,8 @@ export default function Home() {
       router.push(`/dashboard/${session.data.user.userId}`);
     }
   });
+  // console.log(session);
+
   return (
     <>
       <section className="flex flex-col lg:flex-row lg:justify-center px-5">

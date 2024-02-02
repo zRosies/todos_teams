@@ -6,8 +6,8 @@ export async function getAllTodos() {
   try {
     const data = await initDb();
     // const data = await initDb();
-    const arts = await data.find().toArray();
-    return arts;
+    const todos = await data.find().toArray();
+    return todos;
   } catch (error) {
     return { error: `${error} failed to fetch arts` };
   }
@@ -21,19 +21,9 @@ export async function getTodosById(userId: any) {
     const todos = await data.find({ userId: userId }).toArray();
     return todos;
   } catch (error) {
-    return { error: `${error}failed to fetch arts` };
+    return { error: `${error}! Failed to fetch todos` };
   }
 }
-
-// export async function postTodo(body: any, userId: any) {
-//   try {
-//     const data = await initDb();
-//     const result = await data.insertOne(body);
-//     return result;
-//   } catch (err) {
-//     return err;
-//   }
-// }
 
 export async function deleteTodoById(todoId: any) {
   try {
@@ -55,7 +45,7 @@ export async function deleteTodoById(todoId: any) {
 export async function updateTodoById(todoId: any, body: any) {
   try {
     const data = await initDb();
-    console.log(todoId);
+    // console.log(todoId);
 
     const response = await data.updateOne(
       { "todos.todoId": todoId },

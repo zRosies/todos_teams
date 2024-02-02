@@ -28,6 +28,7 @@ const config: Config = {
         secondary: "#151515",
         hover: "#615ECC",
         grayzy: "#19192A",
+        tabs: "#D9D9D9",
         link: "#52A9AE",
         test: "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },

@@ -13,14 +13,12 @@ export default function LoginForm({
   setRegisOpen: any;
 }) {
   const [error, setError] = useState("");
+  const session = useSession();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const email = e.target[0].value;
     const password = e.target[1].value;
-
-    // console.log(email, password);
-    console.log("aaaa");
 
     const response = await signIn("credentials", {
       redirect: false,
@@ -28,20 +26,18 @@ export default function LoginForm({
       password,
     });
 
-    console.log("aaaa");
-    console.log(JSON.stringify(response));
-
-    // const res = await signIn("github");
-    // console.log(response);
-
-    if (response?.error) {
+    if (!response?.ok) {
       setError("Invalid email or password");
-      if (response?.url) router.replace("/");
-      else {
-        setError("");
+
+      if (response?.url) {
+        //@ts-ignore
+        router.replace(`/dashboard/${session.data?.user.userId}`);
       }
+    } else {
+      setError("");
     }
   };
+
   return (
     <>
       <h1 className="font-bold text-[3rem] p-5 lg:text-center mb-20">Login</h1>
@@ -96,6 +92,7 @@ export default function LoginForm({
           Login
         </button>
         <div className="text-center my-2">
+          {error && <span className="text-red-400">{error}</span>}
           <p className="text-$neutral3 text-center my-1">or</p>
           Do not have an account?{" "}
           <a
@@ -107,7 +104,6 @@ export default function LoginForm({
             Sign up
           </a>
         </div>
-        {error && <span className="text-red-400">{error}</span>}
       </form>
     </>
   );

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
-
 const Header = () => {
   const session = useSession();
   // const router = useRouter();
@@ -23,7 +22,12 @@ const Header = () => {
                 : "/"
             }
           >
-            <Image src={"/log.png"} alt="logo" width={50} height={50} />
+            <Image
+              src={"/carouselImages/logo.png"}
+              alt="logo"
+              width={50}
+              height={50}
+            />
           </Link>
           <div className="hidden md:block">
             <p>To</p>

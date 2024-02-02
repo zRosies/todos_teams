@@ -1,5 +1,5 @@
 export async function getData({ userId }: any) {
-  console.log(userId);
+  // console.log(userId);
 
   const res = await fetch(`http://localhost:3000/api/todos/${userId}`);
   // The return value is *not* serialized

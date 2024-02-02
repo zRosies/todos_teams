@@ -41,7 +41,7 @@ const HandleCard = ({
         // onClick={() => openCard(false)}
       ></div> */}
       <form
-        className="max-w-[400px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-[320px] md:w-[430px] left-[2rem] shadow-lg z-50 absolute bg-white animate-cardOpen"
+        className=" px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex left-[2rem] shadow-lg z-50 w-full bg-white animate-cardOpen my-6"
         onSubmit={handleAddTask}
       >
         <label htmlFor="title">
@@ -58,7 +58,7 @@ const HandleCard = ({
             name="description"
             id="title"
             placeholder="Description..."
-            className="w-full border-2 rounded-[4px]"
+            className="w-full border-2 rounded-[4px] h-[7rem] border-none"
           />
         </label>
 

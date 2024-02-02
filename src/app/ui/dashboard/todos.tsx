@@ -13,14 +13,11 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
 
   //This function returns a new array without the todo selected, in other words it's deleted.
   function deleteTodo(todoId: string) {
-
     setTodos((currentTodos: any[]) => {
       const data = currentTodos.filter((todo) => {
         return todo.todoId != todoId;
       });
       return data;
-
-    
     });
   }
   function updateTodo(todoId: string, updatedTodo: any) {
@@ -43,8 +40,7 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
     setTodoOpen(data.filter((todo: any) => todo.todoId === todoId));
   };
 
-
-  //This function sets the todo completed based on its Id by returing the field completed different from its previous value.  
+  //This function sets the todo completed based on its Id by returing the field completed different from its previous value.
 
   function todoCompleted(todoId: string) {
     setTodos((currentTodos: any[]) => {
@@ -82,7 +78,7 @@ export function Todos({ data, setTodos }: { data: any; setTodos: Function }) {
                     <CircleItem
                       background={"#E9ECEF"}
                       circleColor={`${
-                        todo.priority === "p1" ? "#EC4E4E" : "#ffffff"
+                        todo.priority === "p1" ? "#ffffff" : "#ffffff"
                       } `}
                       // className={`w-5 h-5 text-primary stroke-white`}
                     />
