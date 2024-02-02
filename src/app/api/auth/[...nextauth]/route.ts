@@ -85,5 +85,5 @@ export const ServerComponent = async () => {
   const session: any = await getServerSession(authOptions);
   console.log(session);
 
-  return session?.status;
+  return session;
 };

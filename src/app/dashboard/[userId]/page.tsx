@@ -23,13 +23,17 @@ const Dashboard = async (context: any) => {
   const userId = params.userId;
   // const router = new Router();
 
-  const todos: any = await getTodosById(userId);
   const session: any = await ServerComponent();
+
+  if (session == null) {
+    redirect("/");
+  }
+
+  const todos: any = await getTodosById(userId);
+
   // console.log("sesion" + JSON.stringify(session));
 
-  // if (session.status != "authenticated") {
-  //   redirect("/");
-  // }
+  // console.log("session" + JSON.stringify(session));
 
   // console.log(todos);
 

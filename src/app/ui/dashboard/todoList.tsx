@@ -53,7 +53,7 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
     postTodos();
   }, [todos, userId]);
 
-  console.log(todos);
+  // console.log(todos);
   // console.log(userId);
 
   // console.log(data);

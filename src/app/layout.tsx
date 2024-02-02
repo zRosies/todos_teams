@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 
 import "./globals.css";
-import Header from "./views/header";
-import Footer from "./views/footer";
+import Header from "./ui/views/header";
+import Footer from "./ui/views/footer";
 import { getServerSession } from "next-auth";
 import AuthProvider from "./utils/sessionProvider";
 import { poppins } from "./ui/fonts";

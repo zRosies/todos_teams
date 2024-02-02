@@ -1,5 +1,5 @@
 "use client";
-import Navigation from "@/app/ui/navigation/navigation";
+import Navigation from "@/app/ui/views/navigation/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -23,7 +23,7 @@ const Header = () => {
             }
           >
             <Image
-              src={"/carouselImages/logo.png"}
+              src={"/carouselImages/home.png"}
               alt="logo"
               width={50}
               height={50}
