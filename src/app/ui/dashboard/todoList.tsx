@@ -37,7 +37,7 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
   useEffect(() => {
     // todosFromDb();
     postTodos();
-  }, [todos]);
+  }, []);
 
   return (
     <>

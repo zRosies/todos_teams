@@ -4,7 +4,6 @@ import { ServerComponent } from "@/app/api/auth/[...nextauth]/route";
 import { getTodosById } from "@/app/api/controllers/controllers";
 import TodoList from "@/app/ui/dashboard/todoList";
 import { redirect } from "next/navigation";
-import { Router } from "next/router";
 import { Suspense } from "react";
 
 // import todoCard from "@/app/ui/dashboard/todoCard";

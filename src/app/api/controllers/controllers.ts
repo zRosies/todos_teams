@@ -42,7 +42,6 @@ export async function deleteTodoById(todoId: any) {
 export async function updateTodoById(todoId: any, body: any) {
   try {
     const data = await initDb();
-    // console.log(todoId);
 
     const response = await data.updateOne(
       { "todos.todoId": todoId },
@@ -61,11 +60,17 @@ export async function postTodosById(id: any, body: any) {
     //Checking if and ID associated exists, if not, add the json with the user ID.
     const matchingId = await data.findOne({ userId: id });
     const firstTime = { userId: id, todos: body };
+    console.log("aaaaa");
+    console.log(firstTime);
 
     if (!matchingId) {
+      console.log("bbbbbbbbbbb");
+
       const result = await data.insertOne(firstTime);
       return result;
     }
+
+    console.log("cccccccccccccc");
 
     // add new todos based on the user id without overwriting existing.
 

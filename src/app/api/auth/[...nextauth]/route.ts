@@ -79,7 +79,6 @@ export { handler as GET, handler as POST };
 
 export const ServerComponent = async () => {
   const session: any = await getServerSession(authOptions);
-  // console.log(session);
 
   return session;
 };
