@@ -18,7 +18,6 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
       return;
     }
 
-    // console.log(email, password);
     try {
       const response = await fetch("/api/register", {
         method: "POST",
@@ -30,8 +29,6 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
           password: password,
         }),
       });
-
-      // console.log(response);
 
       if (response.status === 400) {
         setError("This email is already in use. Please try again");

@@ -80,16 +80,6 @@ export async function postTodosById(id: any, body: any) {
   }
 }
 
-// export async function updateReview(id: any, review: any) {
-//   try {
-//     const data = await initDb();
-//     const response = data.updateOne({ _id: new ObjectId(id) }, review);
-//     return response;
-//   } catch (error) {
-//     return { message: error };
-//   }
-// }
-
 export async function insertCredentialsInMongo({
   user,
   account,

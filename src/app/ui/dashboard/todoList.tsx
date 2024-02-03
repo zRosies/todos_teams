@@ -27,7 +27,7 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
         },
         body: JSON.stringify(todos),
       });
-      const data = await response.json();
+      // const data = await response.json();
       // console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
