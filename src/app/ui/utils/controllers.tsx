@@ -5,7 +5,7 @@ export async function fetchUserTodos(userId: string) {
 
   const response: any = await fetch(`api/todos/${userId}`);
 
-  console.log(response);
+  // console.log(response);
 
   //   const data = await response.data;
 

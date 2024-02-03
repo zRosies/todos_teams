@@ -4,16 +4,20 @@ import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import GoogleIcon from "../icons/googleIcon";
 import { useEffect, useState } from "react";
+import { Session } from "inspector";
+import { getServerSession } from "next-auth";
 
 export default function LoginForm({
   router,
   setRegisOpen,
+  session,
 }: {
   router: any;
   setRegisOpen: any;
+  session?: Session;
 }) {
   const [error, setError] = useState("");
-  const session = useSession();
+  const teste = useSession();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -28,12 +32,8 @@ export default function LoginForm({
 
     if (!response?.ok) {
       setError("Invalid email or password");
-
-      if (response?.url) {
-        //@ts-ignore
-        router.replace(`/dashboard/${session.data?.user.userId}`);
-      }
     } else {
+      router.push(`/`);
       setError("");
     }
   };

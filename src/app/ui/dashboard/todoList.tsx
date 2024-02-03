@@ -34,14 +34,14 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
           body: JSON.stringify(todos),
         });
         const data = await response.json();
-        // setTodos(data); // Assuming the response is an array of todos
+        setTodos(data); // Assuming the response is an array of todos
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     // todosFromDb();
     postTodos();
-  }, [todos, userId]);
+  }, [todos]);
 
   // console.log(todos);
   // console.log(userId);

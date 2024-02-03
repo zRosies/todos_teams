@@ -11,6 +11,12 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
 
     const email = e.target[0].value;
     const password = e.target[1].value;
+    const confirmPassword = e.target[2].value;
+
+    if (password !== confirmPassword) {
+      setError("The password must match");
+      return;
+    }
 
     // console.log(email, password);
     try {
@@ -35,14 +41,14 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
         setRegOpen(false);
       }
     } catch (error: any) {
-      // console.log(error.message);
+      console.log(error.message);
     }
   };
 
   return (
     <>
       <form
-        className="flex flex-col   max-w-[450px] mx-auto rounded-sm px-10 py-5 h-[350px]"
+        className="flex flex-col   max-w-[450px] mx-auto rounded-sm px-10 py-5 h-[350px] my-[8rem]"
         onSubmit={handleSubmit}
       >
         <span
@@ -62,7 +68,6 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
           required
           className="border-2 border-neutral-100 h-[40px] my-4"
           placeholder="Email"
-          defaultValue={"gustavo@gmail.com"}
         ></input>
         <label htmlFor="password"></label>
         <input
@@ -70,14 +75,21 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
           id="password"
           name="password"
           required
-          defaultValue={"123"}
           placeholder="Password"
           className="h-[40px] border-neutral-100 border-2 mb-8"
         ></input>
-        <button type="submit" className="bg-secondary  p-3 text-white">
+        <input
+          type="confirm"
+          id="confirm"
+          name="confirm"
+          required
+          placeholder="Confirm Password"
+          className="h-[40px] border-neutral-100 border-2 mb-8"
+        ></input>
+        <button type="submit" className="bg-primary  p-3 text-white">
           Register
         </button>
-        {error && <span className="text-red-400">{error}</span>}
+        {error && <span className="text-red-500 text-center">{error}</span>}
       </form>
     </>
   );

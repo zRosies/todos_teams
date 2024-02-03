@@ -21,28 +21,21 @@ const Dashboard = async (context: any) => {
   // console.log(todos);
   const { params } = context;
   const userId = params.userId;
-  // const router = new Router();
-
+  const todos: any = await getTodosById(userId);
   const session: any = await ServerComponent();
 
-  if (session == null) {
+  console.log();
+
+  if (session === null) {
     redirect("/");
   }
-
-  const todos: any = await getTodosById(userId);
-
-  // console.log("sesion" + JSON.stringify(session));
-
-  // console.log("session" + JSON.stringify(session));
-
-  // console.log(todos);
 
   return (
     <>
       <section className="max-w-[800px] mx-auto px-5 ">
         <h1 className=" text-[2rem] my-5 font-extrabold">Inbox</h1>
         <Suspense fallback={<p>Loading...</p>}>
-          <TodoList userId={userId} data={(todos[0] && todos[0].todos) || []} />
+          <TodoList userId={userId} data={todos[0] && todos[0].todos} />
         </Suspense>
 
         <h2 className="font-bold ">Completed</h2>

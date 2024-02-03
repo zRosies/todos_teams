@@ -14,11 +14,6 @@ export default async function Login() {
   return (
     <>
       <LoginParent />
-      {/* {registerOpen ? (
-        <RegisterForm setRegOpen={setRegisOpen} />
-      ) : (
-        <LoginForm router={router} setRegisOpen={setRegisOpen} />
-      )} */}
     </>
   );
 }
