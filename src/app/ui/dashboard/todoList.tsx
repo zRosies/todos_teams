@@ -1,12 +1,10 @@
 "use client";
 
-import { getAllTodos } from "@/app/api/controllers/controllers";
 import Todos from "./todos";
 import { FaPlus } from "react-icons/fa6";
 import HandleTodoCard from "./handleCard";
 import { Suspense, useEffect, useState } from "react";
-import { TodoObject } from "@/app/dashboard/[userId]/page";
-// import axios from "axios";
+
 export interface Todos {
   todoId: string;
   title: string;
@@ -18,35 +16,28 @@ export interface Todos {
 
 export function TodoList({ userId, data }: { userId: string; data: any }) {
   const [cardOpen, setCardOpen] = useState(false);
-  const [todos, setTodos] = useState<Todos[]>([]);
+  const [todos, setTodos] = useState<Todos[]>(data);
 
-  // const [submitted, setSubmitted] = useState(false);
+  const postTodos = async () => {
+    try {
+      const response = await fetch(`/api/todos/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(todos),
+      });
+      const data = await response.json();
+      // console.log(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
-    const postTodos = async () => {
-      // const todosFromMongo = todosFromDb();
-      try {
-        const response = await fetch(`/api/todos/${userId}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(todos),
-        });
-        const data = await response.json();
-        setTodos(data); // Assuming the response is an array of todos
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     // todosFromDb();
     postTodos();
   }, [todos]);
-
-  // console.log(todos);
-  // console.log(userId);
-
-  // console.log(data);
 
   return (
     <>

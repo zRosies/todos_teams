@@ -27,8 +27,6 @@ export const authOptions: any = {
               user.password
             );
             if (isCorrectPassword) {
-              // console.log(user);
-
               return user;
             }
           }
@@ -48,8 +46,6 @@ export const authOptions: any = {
   ],
   callbacks: {
     session: async ({ session, token }: { session: any; token: any }) => {
-      // console.log("session" + JSON.stringify(session));
-      // console.log(JSON.stringify(token));
       if (session?.user) {
         session.user.userId = token.sub;
       }

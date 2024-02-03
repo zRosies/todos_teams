@@ -15,8 +15,6 @@ const HandleUpdateTodo = ({
   deleteTodo: any;
   updateTodo: any;
 }) => {
-  console.log(todo);
-
   const handleUpdateTodo = (e: any) => {
     e.preventDefault();
 
@@ -24,10 +22,6 @@ const HandleUpdateTodo = ({
     const description = e.target.elements.description.value;
     const priority = e.target.elements.priority.value;
     const category = e.target.elements.category.value;
-
-    // console.log("description" + description);
-    // console.log("title" + title);
-    // console.log("title2" + title2);
 
     const updatedTodo = {
       todoId: todo.todoId,
@@ -37,10 +31,6 @@ const HandleUpdateTodo = ({
       category: category,
       completed: todo.completed,
     };
-
-    console.log(updatedTodo);
-
-    // console.log(updatedTodo);
 
     updateTodo(todo.todoId, updatedTodo);
     openTodoCard([]);

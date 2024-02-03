@@ -18,13 +18,10 @@ export type TodoObject =
     }
   | any;
 const Dashboard = async (context: any) => {
-  // console.log(todos);
   const { params } = context;
   const userId = params.userId;
-  const todos: any = await getTodosById(userId);
+  const todos: TodoObject = await getTodosById(userId);
   const session: any = await ServerComponent();
-
-  console.log();
 
   if (session === null) {
     redirect("/");
@@ -35,7 +32,10 @@ const Dashboard = async (context: any) => {
       <section className="max-w-[800px] mx-auto px-5 ">
         <h1 className=" text-[2rem] my-5 font-extrabold">Inbox</h1>
         <Suspense fallback={<p>Loading...</p>}>
-          <TodoList userId={userId} data={todos[0] && todos[0].todos} />
+          <TodoList
+            userId={userId}
+            data={todos && todos[0] ? todos[0].todos : []}
+          />
         </Suspense>
 
         <h2 className="font-bold ">Completed</h2>

@@ -16,24 +16,23 @@ export async function GET(req: Request, context: any) {
   return NextResponse.json({ data });
 }
 
-export async function PUT(req: Request, context: any) {
-  const { params } = context;
-  const body = await req.json();
+// export async function PUT(req: Request, context: any) {
+//   const { params } = context;
+//   const body = await req.json();
 
-  const response: any = await updateTodoById(params.userId, body);
-  if (response.updatedCount <= 0) {
-    return NextResponse.json({
-      message: "Todo was not updated correctly",
-    });
-  }
+//   const response: any = await updateTodoById(params.userId, body);
+//   if (response.updatedCount <= 0) {
+//     return NextResponse.json({
+//       message: "Todo was not updated correctly",
+//     });
+//   }
 
-  return NextResponse.json({ message: "Todo updated successfuly" });
-}
+//   return NextResponse.json({ message: "Todo updated successfuly" });
+// }
 
 export async function POST(req: Request, context: any) {
   const { params } = context;
   const body = await req.json();
-
   const response: any = await postTodosById(params.userId, body);
 
   if (response.modifiedCount < 0) {
