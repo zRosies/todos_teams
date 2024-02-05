@@ -33,6 +33,7 @@ export async function GET(req: Request, context: any) {
 export async function POST(req: Request, context: any) {
   const { params } = context;
   const body = await req.json();
+
   const response: any = await postTodosById(params.userId, body);
 
   if (response.modifiedCount < 0) {
@@ -40,6 +41,7 @@ export async function POST(req: Request, context: any) {
   }
 
   return NextResponse.json({ message: "Todo added successfuly" });
+  // return NextResponse.json(body);
 }
 
 export async function DELETE(req: Request, context: any) {

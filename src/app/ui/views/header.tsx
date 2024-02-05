@@ -23,7 +23,7 @@ const Header = () => {
             }
           >
             <Image
-              src={"/carouselImages/home.png"}
+            src={"/carouselImages/home.png"}
               alt="logo"
               width={50}
               height={50}

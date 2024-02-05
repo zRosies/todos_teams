@@ -15,7 +15,6 @@ export default function Home() {
       router.push(`/dashboard/${session.data.user.userId}`);
     }
   });
-  // console.log(session);
 
   return (
     <>

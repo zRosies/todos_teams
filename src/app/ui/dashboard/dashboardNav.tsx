@@ -16,9 +16,6 @@ const DashboardNav = ({ animationType, setNavigationOpen }: any) => {
   const router = useRouter();
   const [categoryOpen, setCardOpen] = useState<String>("inbox");
 
-  // console.log(session);
-
-  // console.log(session);
 
   return (
     <>

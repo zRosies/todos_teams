@@ -27,17 +27,16 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
         },
         body: JSON.stringify(todos),
       });
-      // const data = await response.json();
-      // console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
-    // todosFromDb();
-    postTodos();
-  }, []);
+    if (todos.length > 0) {
+      postTodos();
+    }
+  }, [todos]);
 
   return (
     <>
