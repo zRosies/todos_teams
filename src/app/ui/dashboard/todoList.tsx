@@ -4,6 +4,7 @@ import Todos from "./todos";
 import { FaPlus } from "react-icons/fa6";
 import HandleTodoCard from "./handleCard";
 import { Suspense, useEffect, useState } from "react";
+import { PiMedalFill } from "react-icons/pi";
 
 export interface Todos {
   todoId: string;
@@ -40,6 +41,13 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
 
   return (
     <>
+      <div className="  my-5  flex flex-row justify-between w-full">
+        <h1 className="text-[2rem]">Inbox</h1>
+        <div className="mr-10 flex items-center justify-end">
+          <span>1/2</span>
+          <PiMedalFill className="h-10 w-6 text-primary" />
+        </div>
+      </div>
       <Suspense fallback={<p>Loading....</p>}>
         <Todos data={todos} setTodos={setTodos}></Todos>
       </Suspense>
@@ -48,10 +56,10 @@ export function TodoList({ userId, data }: { userId: string; data: any }) {
           className="flex items-center gap-2 my-5 relative"
           onClick={() => setCardOpen(true)}
         >
-          <div className=" max-w-[50px] bg-hover hover:bg-primary duration-200 p-3 flex">
-            <FaPlus className="text-white w-5 h-5" />
+          <div className=" w-[2.3rem] h-[2.3rem] rounded-[50%] bg-hover hover:bg-primary duration-200 p-3 flex justify-center items-center">
+            <FaPlus className="text-white w-7 h-7" />
           </div>
-          <span className=" font-extrabold">Add Task</span>
+          <span className="">Add Task</span>
         </button>
         {/*----------------------------------- Add tasks here ---------------------------- */}
         {cardOpen && (

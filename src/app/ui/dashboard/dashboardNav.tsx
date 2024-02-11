@@ -5,7 +5,6 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 // import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { FaInbox } from "react-icons/fa";
 import { IoBookOutline } from "react-icons/io5";
 import { DiStackoverflow } from "react-icons/di";
@@ -13,9 +12,8 @@ import { useState } from "react";
 
 const DashboardNav = ({ animationType, setNavigationOpen }: any) => {
   const session = useSession();
-  const router = useRouter();
   const [categoryOpen, setCardOpen] = useState<String>("inbox");
-
+  // const router = useRouter();
 
   return (
     <>

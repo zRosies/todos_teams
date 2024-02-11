@@ -2,8 +2,10 @@
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardNav from "@/app/ui/dashboard/dashboardNav";
+import { PiMedalFill } from "react-icons/pi";
+import { useRouter } from "next/navigation";
 
 const Navigation = () => {
   const session = useSession();
@@ -26,11 +28,15 @@ const Navigation = () => {
             </Link>
           )}
         </ul>
+
         {session.status === "authenticated" && (
           <span onClick={handleMenuOpen}>
             <HiMenuAlt3 className="w-8 h-8 text-primary cursor-pointer" />
           </span>
         )}
+        {/* {session.status === "authenticated" && (
+          
+        )} */}
 
         <DashboardNav
           animationType={menuOpen}

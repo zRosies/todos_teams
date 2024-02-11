@@ -1,20 +1,18 @@
-"use client";
+"use server";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import BrandCarousel from "./ui/brandCarousel";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { ServerComponent } from "./api/auth/[...nextauth]/options";
 
-export default function Home() {
-  const session = useSession();
-  const router = useRouter();
-  useEffect(() => {
-    if (session?.status === "authenticated") {
-      //@ts-ignore
-      router.push(`/dashboard/${session.data.user.userId}`);
-    }
-  });
+export default async function Home() {
+  const session = await ServerComponent();
+  console.log(session);
+
+  if (session != null) {
+    redirect(`/dashboard/${session?.user.userId}`);
+  }
 
   return (
     <>
