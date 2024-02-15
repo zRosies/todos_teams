@@ -1,14 +1,12 @@
-"use client";
+"use server";
 import Navigation from "@/app/ui/views/navigation/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { ServerComponent } from "@/app/api/auth/[...nextauth]/options";
 
-const Header = () => {
-  const session = useSession();
-  // const router = useRouter();
-  // const location = window.location.href;
-  // console.log(location);
+const Header = async () => {
+  const session = await ServerComponent();
 
   return (
     <>
@@ -16,14 +14,14 @@ const Header = () => {
         <div className="flex gap-2 ml-5 m-2">
           <Link
             href={
-              session.status === "authenticated"
+              session != null
                 ? //@ts-ignore
-                  `/dashboard/${session.data.user.userId}`
+                  `/dashboard/${session.user.userId}`
                 : "/"
             }
           >
             <Image
-            src={"/carouselImages/home.png"}
+              src={"/carouselImages/home.png"}
               alt="logo"
               width={50}
               height={50}
@@ -34,7 +32,7 @@ const Header = () => {
             <p>Do</p>
           </div>
         </div>
-        <Navigation />
+        <Navigation session={session} />
       </header>
     </>
   );

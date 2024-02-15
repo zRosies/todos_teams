@@ -1,9 +1,7 @@
-import NextAuth from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { initClientDB } from "../../mongo/connection";
-import User from "../../schemas/user";
 import { getServerSession } from "next-auth";
 import bcrypt from "bcryptjs";
 import { insertCredentialsInMongo } from "../../controllers/controllers";
@@ -77,6 +75,5 @@ export default authOptions;
 
 export const ServerComponent = async () => {
   const session: any = await getServerSession(authOptions);
-
   return session;
 };

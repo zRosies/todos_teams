@@ -7,12 +7,14 @@ const HandleCard = ({
   setCardOpen,
   setTodos,
   todos,
+  additionalClass,
 }: {
   userId: string;
   setCardOpen: any;
   todoId?: string;
   setTodos: Function;
   todos: any;
+  additionalClass?: string;
 }) => {
   const handleAddTask = async (e: any) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ const HandleCard = ({
         // onClick={() => openCard(false)}
       ></div> */}
       <form
-        className=" px-5 py-5  gap-2 flex-col rounded-[8px] max-w-[500px] w-ful flex left-[2rem] shadow-lg z-50 w-full bg-white animate-cardOpen my-6"
+        className={` ${additionalClass} px-5 py-5 gap-2 flex-col rounded-[8px] max-w-[520px] w-ful flex left-[2rem] shadow-lg z-50 w-full bg-white animate-cardOpen my-6`}
         onSubmit={handleAddTask}
       >
         <label htmlFor="title">
@@ -50,15 +52,15 @@ const HandleCard = ({
             name="description"
             id="title"
             placeholder="Title..."
-            className="w-full border-2 rounded-[4px]"
+            className="w-full border-2 border-gray-200  rounded-[4px]"
           />
         </label>
-        <label htmlFor="description">
+        <label htmlFor="description" className="border-2 border-gray-200 ">
           <textarea
             name="description"
             id="title"
             placeholder="Description..."
-            className="w-full border-2 rounded-[4px] h-[7rem] border-none"
+            className="w-full  rounded-[4px] h-[7rem] border-none"
           />
         </label>
 
@@ -83,7 +85,8 @@ const HandleCard = ({
           >
             <option value="">Category </option>
             <option value="study">Study</option>
-            <option value="">Personal Development</option>
+            <option value="development">Personal Development</option>
+            <option value="other">Other</option>
           </select>
         </div>
 

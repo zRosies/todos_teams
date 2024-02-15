@@ -27,7 +27,7 @@ export async function deleteTodoById(todoId: any) {
   try {
     const data = await initDb();
 
-    // Gettomg strings to get the item inside the schema or  putting in the array like in the post function.
+    // Setting strings to get the item inside the schema or  putting in the array like in the post function.
 
     const response = await data.updateOne(
       { "todos.todoId": todoId },
@@ -61,7 +61,7 @@ export async function postTodosById(id: any, body: any) {
     const matchingId = await data.findOne({ userId: id });
     const firstTime = { userId: id, todos: body };
 
-    console.log(matchingId);
+    // console.log(matchingId);
 
     if (!matchingId) {
       const result = await data.insertOne(firstTime);

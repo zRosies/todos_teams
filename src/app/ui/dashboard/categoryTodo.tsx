@@ -12,7 +12,7 @@ import { BiTask } from "react-icons/bi";
 
 import { CiEdit } from "react-icons/ci";
 
-export function Todos({
+export function CategoryTodo({
   data,
   setTodos,
   type,
@@ -70,18 +70,12 @@ export function Todos({
 
   return (
     <>
-      <section
-        className="flex flex-col w-full relative overlay rounded-[8px] overflow-y-auto max-h-[250px] max-w-[800px] p-2 my-3"
-        style={{
-          scrollbarWidth: "thin",
-          scrollbarColor: " #7573D7 #fff",
-        }}
-      >
+      <section className="flex flex-col w-full relative ">
         {data && data.length > 0 ? (
           data.map((todo: any) => (
             <form
               key={todo.todoId}
-              className="flex bg-[#E9ECEF] my-1 p-2 justify-between items-center rounded-[10px]"
+              className="flex bg-[#E9ECEF] my-1 p-2 justify-between items-center rounded-[8px]"
             >
               <div className="flex gap-2  items-center">
                 {/* <input
@@ -143,4 +137,4 @@ export function Todos({
   );
 }
 
-export default Todos;
+export default CategoryTodo;

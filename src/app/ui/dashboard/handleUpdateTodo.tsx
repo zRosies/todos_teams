@@ -1,6 +1,8 @@
 import { MdFlag } from "react-icons/md";
-import { IoMdCloseCircle } from "react-icons/io";
+
 import { Todos } from "./todoList";
+import { IoClose } from "react-icons/io5";
+
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 const HandleUpdateTodo = ({
@@ -44,15 +46,15 @@ const HandleUpdateTodo = ({
       ></div>
       <form
         onSubmit={handleUpdateTodo}
-        className="max-w-[400px] px-5 py-5 mx-auto gap-2 flex-col rounded-[8px] flex w-[320px] md:w-[430px] top-[50%] left-[50%] shadow-lg z-50 absolute bg-white animate-cardOpen  -translate-x-1/2 -translate-y-1/2"
+        className="max-w-[520px]  px-5 py-10 mx-auto gap-2 flex-col rounded-[8px] flex w-[355px] md:w-[430px] top-[50%] left-[50%] shadow-lg z-50 absolute bg-white animate-cardOpen  -translate-x-1/2 -translate-y-1/2"
       >
         <button
           type="button"
-          className="text-end self-end"
+          className="text-end self-end  "
           onClick={() => openTodoCard([])}
         >
-          <IoMdCloseCircleOutline
-            className="text-gray-500 mb-5 w-8 h-8"
+          <IoClose
+            className="text-gray-700 mb-5 w-5 h-5 absolute top-2 right-2"
             // onClick={setCardOpen(todoId)}
           />
         </button>
@@ -100,14 +102,15 @@ const HandleUpdateTodo = ({
           >
             <option value="">Category </option>
             <option value="study">Study</option>
-            <option value="">Personal Development</option>
+            <option value="development">Personal Development</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
         <div className="w-full flex gap-5 mt-5">
           <button
             type="button"
-            className={`p-2 w-full rounded-[4px]bg-slate-100 bg-red-300 hover:bg-red-200 duration-200`}
+            className={`p-2 w-full rounded-[4px]bg-slate-100 bg-red-500 hover:bg-red-400 text-white duration-200 rounded-[4px]`}
             onClick={() => {
               deleteTodo(todo.todoId), openTodoCard([]);
             }}

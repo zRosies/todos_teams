@@ -40,14 +40,16 @@ export default function LoginForm({
 
   return (
     <>
-      <h1 className="font-bold text-[3rem] p-5 lg:text-center mb-20">Login</h1>
+      <h1 className="font-bold text-[2rem] md:text-[3rem] p-5 lg:text-center mb-20">
+        Login
+      </h1>
 
       <button
         type="button"
         onClick={() => {
           signIn("github");
         }}
-        className="bg-black hover:bg-[#242424] duration-200 p-2 flex items-center justify-center gap-2 rounded-[5px] my-2 cursor-pointer max-w-[420px] mx-auto w-full"
+        className="bg-black hover:bg-[#242424] duration-200 p-2 flex items-center justify-center gap-2 rounded-[5px] my-2 cursor-pointer max-w-[300px] md:max-w-[420px] mx-auto w-full"
       >
         <FaGithub className="stroke-white text-white w-[30px] h-[30px]" />{" "}
         <span className="text-white"> Sign in with Github</span>
@@ -55,7 +57,7 @@ export default function LoginForm({
       <button
         // href={"/"}
         type="button"
-        className="bg-neutral-100 p-2 flex items-center justify-center gap-2 rounded-[5px] mt-4 cursor-pointer max-w-[420px] mx-auto w-full"
+        className="bg-neutral-100 p-2 flex items-center justify-center gap-2 rounded-[5px] mt-4 cursor-pointer md:max-w-[420px] mx-auto w-full max-w-[300px]"
         onClick={() => {
           signIn("google");
         }}
@@ -94,7 +96,7 @@ export default function LoginForm({
         <div className="text-center my-2">
           {error && <span className="text-red-400">{error}</span>}
           <p className="text-$neutral3 text-center my-1">or</p>
-          Do not have an account?{" "}
+          Do not have an account ?{" "}
           <a
             className="text-linkColor cursor-pointer hover:underline text-link"
             onClick={() => {

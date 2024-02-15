@@ -44,6 +44,7 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
 
   return (
     <>
+      <h1 className="text-center font-bold text-[1.5rem]">Register now</h1>
       <form
         className="flex flex-col   max-w-[450px] mx-auto rounded-sm px-10 py-5 h-[350px] my-[8rem]"
         onSubmit={handleSubmit}
@@ -56,7 +57,7 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
         >
           <MdOutlineKeyboardArrowLeft /> return
         </span>
-        <h1 className="text-center font-bold text-[1.5rem]">Register now</h1>
+
         <label htmlFor="username"></label>
         <input
           type="text"

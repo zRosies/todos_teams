@@ -31,13 +31,11 @@ const Dashboard = async (context: any) => {
     <>
       <section className="max-w-[800px] mx-auto px-5 ">
         <TodoList
+          type="Inbox"
           userId={userId}
+          // data={todos && todos[0] ? todos[0].todos : []}
           data={todos && todos[0] ? todos[0].todos : []}
         />
-
-        <h2 className="font-bold ">Completed</h2>
-        <p>No task completed yet...</p>
-        <div className="mb-[300px]"></div>
       </section>
     </>
   );

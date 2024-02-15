@@ -6,8 +6,6 @@ import HandleTodoCard from "./handleCard";
 import { Suspense, useEffect, useState } from "react";
 import { PiMedalFill } from "react-icons/pi";
 import { BiTask } from "react-icons/bi";
-import { CiSearch } from "react-icons/ci";
-import { useRouter } from "next/navigation";
 
 export interface Todos {
   todoId: string;
@@ -18,21 +16,22 @@ export interface Todos {
   completed: boolean;
 }
 
-export function TodoList({
+export function CategoryList({
   userId,
   data,
   type,
-}: {
+}: //   category,
+{
   userId: string;
   data: any;
   type: string;
+  //   category: string;
 }) {
   const [cardOpen, setCardOpen] = useState(false);
   const [todos, setTodos] = useState<Todos[]>(data);
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
-  const router = useRouter();
 
-  // console.log(userId);
+  const querySearch = new RegExp(type.toLocaleLowerCase(), "i");
+  const normalTypes = /study|development|other/i;
 
   const postTodos = async (todos: any) => {
     try {
@@ -57,21 +56,18 @@ export function TodoList({
 
   console.log(todos.length);
 
-  const SearchTodo = (e: any) => {
-    e.preventDefault();
-
-    const query = e.target.elements.search.value;
-
-    console.log(query);
-
-    router.push(`/dashboard/category/1?category=${query}&id=122292506`);
-  };
-
   return (
     <>
-      <div className="  my-5  flex flex-row justify-between w-full">
-        <h1 className="text-[2rem]">{type}</h1>
-
+      <div className="  my-5  flex flex-row justify-between w-full items-center">
+        {normalTypes.test(type) ? (
+          <h1 className="text-[2rem]">{`${type.slice(0, 1).toUpperCase()}${type
+            .slice(1, type.length)
+            .toLowerCase()}`}</h1>
+        ) : (
+          <h1 className="text-[1.3rem]">
+            Results for <span>{type}...</span>
+          </h1>
+        )}
         <div className="flex items-center ">
           <span>
             {<>{todos.filter((todo) => todo.completed).length}</>}/
@@ -85,33 +81,17 @@ export function TodoList({
       <Suspense fallback={<p>Loading....</p>}>
         <Todos
           type="add"
-          data={todos.filter((todo) => !todo.completed)}
+          data={todos.filter(
+            (todo) =>
+              todo.category === type ||
+              querySearch.test(todo.title) ||
+              (querySearch.test(todo.description) && !todo.completed)
+          )}
           setTodos={setTodos}
         ></Todos>
       </Suspense>
-
-      <div className="relative w-full mt-12">
-        <form
-          action=""
-          onSubmit={SearchTodo}
-          className="w-full flex flex-row gap-2"
-        >
-          <button
-            type="submit"
-            className="flex gap-5 items-center w-full bg-hover text-white max-w-[2.5rem] justify-center  h-[2.5rem] rounded-[6px]"
-          >
-            <CiSearch className="w-5 h-5" />
-          </button>
-          <label htmlFor="search">
-            <input
-              name="search"
-              type="text"
-              placeholder="Search..."
-              className="w-full max-w-[800px] border-2 h-[2.5rem] rounded-[8px] pl-2"
-            />
-          </label>
-        </form>
-
+      <div className="relative">
+        <button></button>
         <button
           className="flex items-center gap-2 my-8 relative"
           onClick={() => setCardOpen((prevState) => !prevState)}
@@ -121,6 +101,7 @@ export function TodoList({
           </div>
           <span className="">Add Task</span>
         </button>
+        {/*----------------------------------- Add tasks here ---------------------------- */}
         {cardOpen && (
           <HandleTodoCard
             userId={userId}
@@ -129,7 +110,6 @@ export function TodoList({
             setTodos={setTodos}
           />
         )}
-        {/*----------------------------------- Add tasks here ---------------------------- */}
       </div>
       <h2 className=" border-b-2 border-gray-100 mb-2">Completed</h2>
 
@@ -156,4 +136,4 @@ export function TodoList({
   );
 }
 
-export default TodoList;
+export default CategoryList;
