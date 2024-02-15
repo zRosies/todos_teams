@@ -1,6 +1,7 @@
 "use client";
 import { IoPersonAdd } from "react-icons/io5";
 import { FaCopy } from "react-icons/fa";
+import Invite from "./invite";
 
 export function MainTeams({ user }: { user: any }) {
   const CopyId = (id: string) => {
@@ -34,6 +35,7 @@ export function MainTeams({ user }: { user: any }) {
           </button>
         </div>
       </div>
+      <Invite />
     </>
   );
 }
