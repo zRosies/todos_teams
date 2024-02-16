@@ -33,14 +33,11 @@ export function MainTeams({ user }: { user: any }) {
     setUserFound(data);
   };
 
-  console.log(userFound, length);
-  console.log(userFound.length);
-
   const userId: string = user.user.userId;
 
   return (
     <>
-      <div className=" flex   md:flex-row justify-between items-center">
+      <section className=" flex  md:flex-row justify-between items-center">
         <div className="flex flex-col gap-2">
           <p>My email</p>
           <span className="bg-neutral-200 p-1 rounded-[8px] flex gap-2 text-[.7rem]">
@@ -61,22 +58,22 @@ export function MainTeams({ user }: { user: any }) {
             <FaBell className="text-white h-4 w-4 " />
           </button>
         </div>
-      </div>
+      </section>
 
-      <section className="flex border-2 gap-2 mt-5">
-        <section className="flex flex-col border-2 gap-2">
-          <div className="flex items-center">
+      <section className="flex border-1 gap-2 mt-5 border-[1px] border-primary">
+        <section className="flex flex-col gap-2 border-r-[1px] border-primary ">
+          <div className="flex items-center gap-2 mx-2">
             <form action="" className="flex" onSubmit={findTeamMate}>
               <label htmlFor="search">
                 <input
                   type="text"
                   name="search"
                   placeholder="Type your mate email.."
-                  className="pl-2 p-2 max-w-[150px] text-[.6rem]"
+                  className="pl-2 p-2 max-w-[150px] text-[.6rem] outline-none"
                 />
               </label>
               <button type="submit" className="bg-primary p-1 rounded-[50%]">
-                <IoSearchOutline className="text-white h-5 w-5" />
+                <IoSearchOutline className="text-white h-3 w-5" />
               </button>
             </form>
           </div>
@@ -96,8 +93,21 @@ export function MainTeams({ user }: { user: any }) {
           )}
         </section>
 
-        <div className="flex justify-center w-full">
+        <div className="flex justify-center w-full max-w-[500px] flex-col ">
           <h1 className="text-center">Chat</h1>
+          <form className="flex flex-col">
+            Conversation
+            <label htmlFor="message">
+              <input
+                type="text"
+                id="message"
+                name="message"
+                required
+                className="outline-none"
+                placeholder="Message"
+              />
+            </label>
+          </form>
         </div>
       </section>
       {/* <Invite /> */}
