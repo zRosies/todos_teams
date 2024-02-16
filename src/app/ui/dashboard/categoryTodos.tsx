@@ -58,7 +58,7 @@ export function CategoryList({
 
   return (
     <>
-      <div className="  my-5  flex flex-row justify-between w-full items-center">
+      <div className=" my-5  flex flex-row justify-between w-full items-center">
         {normalTypes.test(type) ? (
           <h1 className="text-[2rem]">{`${type.slice(0, 1).toUpperCase()}${type
             .slice(1, type.length)

@@ -29,7 +29,7 @@ const Navigation = ({ session }: any) => {
           )}
         </ul>
         {session != null && (
-          <div className="flex justify-between w-[120px] items-center mr-5">
+          <div className="flex justify-between w-[120px] items-center mr-1">
             <Link
               href={"/teams"}
               className=" text-black px-2 rounded-[8px] relative"

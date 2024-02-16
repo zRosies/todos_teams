@@ -1,12 +1,14 @@
 import { MongoClient } from "mongodb";
-export async function initDb() {
+export async function initDb({
+  collection = "todos",
+}: { collection?: string } = {}) {
   const uri = process.env.URI;
 
   if (!uri) throw new Error("No URI found");
   try {
     const client = new MongoClient(uri);
     const connection = await client.connect();
-    const data = connection.db("todo").collection("todos");
+    const data = connection.db("todo").collection(`${collection}`);
 
     return data;
   } catch (error) {
