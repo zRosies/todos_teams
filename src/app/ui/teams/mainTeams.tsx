@@ -4,6 +4,7 @@ import { FaCopy, FaSearch } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
+import Chat from "./chat";
 
 export interface UserInfo {
   name: string;
@@ -37,7 +38,7 @@ export function MainTeams({ user }: { user: any }) {
 
   return (
     <>
-      <section className=" flex  md:flex-row justify-between items-center">
+      <section className=" flex  md:flex-row justify-between items-center ">
         <div className="flex flex-col gap-2">
           <p>My email</p>
           <span className="bg-neutral-200 p-1 rounded-[8px] flex gap-2 text-[.7rem]">
@@ -51,17 +52,6 @@ export function MainTeams({ user }: { user: any }) {
               <FaCopy className="text-primary" />
             </button>
           </span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button type="button" className="p-2 bg-primary rounded-[50%]">
-            <FaBell className="text-white h-4 w-4 " />
-          </button>
-        </div>
-      </section>
-
-      <section className="flex border-1 gap-2 mt-5 border-[1px] border-primary">
-        <section className="flex flex-col gap-2 border-r-[1px] border-primary ">
           <div className="flex items-center gap-2 mx-2">
             <form action="" className="flex" onSubmit={findTeamMate}>
               <label htmlFor="search">
@@ -77,37 +67,43 @@ export function MainTeams({ user }: { user: any }) {
               </button>
             </form>
           </div>
-          {userFound._id && (
-            <button className="flex items-center gap-2 mx-2">
-              <div className="bg-primary text-white p-2 rounded-[50%] w-[30px] h-[30px] flex justify-center items-center">
-                {" "}
-                <span className="text-[.7rem]">
-                  {userFound.email.slice(0, 1).toLocaleUpperCase()}
-                </span>
-                <span className="text-[.7rem]">
-                  {userFound.email.slice(1, 2).toLocaleUpperCase()}
-                </span>
-              </div>
-              <p className="text-[.6rem]">{userFound.email}</p>
-            </button>
-          )}
-        </section>
+        </div>
 
-        <div className="flex justify-center w-full max-w-[500px] flex-col ">
-          <h1 className="text-center">Chat</h1>
-          <form className="flex flex-col">
-            Conversation
-            <label htmlFor="message">
-              <input
-                type="text"
-                id="message"
-                name="message"
-                required
-                className="outline-none"
-                placeholder="Message"
-              />
-            </label>
-          </form>
+        <div className="flex items-center gap-2">
+          <button type="button" className="p-2 bg-primary rounded-[50%]">
+            <FaBell className="text-white h-4 w-4 " />
+          </button>
+        </div>
+      </section>
+
+      <section className="flex border-1 gap-2 mt-5 border-[1px] border-primary rounded-[10px] p-2 ">
+        <section className="flex flex-col gap-2 border-r-[1px] border-primary h-[300px] ">
+          {userFound._id && (
+            <>
+              <p>User found</p>
+              <button className="flex items-center gap-2 mx-2">
+                <div className="bg-primary text-white p-2 rounded-[50%] w-[30px] h-[30px] flex justify-center items-center">
+                  {" "}
+                  <span className="text-[.7rem]">
+                    {userFound.email.slice(0, 1).toLocaleUpperCase()}
+                  </span>
+                  <span className="text-[.7rem]">
+                    {userFound.email.slice(1, 2).toLocaleUpperCase()}
+                  </span>
+                </div>
+                <p className="text-[.6rem]">{userFound.email}</p>
+              </button>
+            </>
+          )}
+          <div>
+            <h1>user</h1>
+            <h1>user</h1>
+            <h1>user</h1>
+            <h1>user</h1>
+          </div>
+        </section>
+        <div className="w-full">
+          <Chat />
         </div>
       </section>
       {/* <Invite /> */}
