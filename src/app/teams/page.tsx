@@ -16,7 +16,7 @@ export default async function Teams() {
 
   return (
     <>
-      <section className="max-w-[800px] mx-auto px-5 ">
+      <section className="max-w-[800px] mx-auto px-2 ">
         <MainTeams user={user} />
       </section>
     </>

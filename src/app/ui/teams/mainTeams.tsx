@@ -14,10 +14,8 @@ export interface UserInfo {
 }
 
 export function MainTeams({ user }: { user: any }) {
-  const CopyId = (id: string) => {
-    navigator.clipboard.writeText(id);
-  };
   const [userFound, setUserFound] = useState<any>([]);
+  const [chatConversation, setChatConversation] = useState<any>([]);
 
   const findTeamMate = async (e: any) => {
     e.preventDefault();
@@ -32,6 +30,9 @@ export function MainTeams({ user }: { user: any }) {
     const data = await response.json();
 
     setUserFound(data);
+  };
+  const CopyId = (id: string) => {
+    navigator.clipboard.writeText(id);
   };
 
   const userId: string = user.user.userId;
@@ -70,14 +71,17 @@ export function MainTeams({ user }: { user: any }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <button type="button" className="p-2 bg-primary rounded-[50%]">
+          <button
+            type="button"
+            className="p-2 bg-primary rounded-[50%] shadow-lg"
+          >
             <FaBell className="text-white h-4 w-4 " />
           </button>
         </div>
       </section>
 
-      <section className="flex border-1 gap-2 mt-5 border-[1px] border-primary rounded-[10px] p-2 ">
-        <section className="flex flex-col gap-2 border-r-[1px] border-primary h-[300px] ">
+      <section className="flex flex-col-reverse md:flex-row border-1 gap-2 mt-5 shadow-lg shadow-gray-300 rounded-[10px] p-2 ">
+        <section className="flex  flex-row md:flex-col gap-2 border-r-[1px] border-gray-200 md:h-[300px] md:w-[200px]">
           {userFound._id && (
             <>
               <p>User found</p>
@@ -95,16 +99,21 @@ export function MainTeams({ user }: { user: any }) {
               </button>
             </>
           )}
-          <div>
-            <h1>user</h1>
-            <h1>user</h1>
-            <h1>user</h1>
-            <h1>user</h1>
-          </div>
+
+          <h1 className="bg-orange-400 text-white rounded-[50%] p-4 w-10 h-10 flex justify-center items-center">
+            GB
+          </h1>
+
+          <h1 className="bg-orange-400 text-white rounded-[50%] p-4 w-10 h-10 flex justify-center items-center">
+            GB
+          </h1>
+
+          <h1 className="bg-orange-400 text-white rounded-[50%] p-4 w-10 h-10 flex justify-center items-center">
+            GB
+          </h1>
         </section>
-        <div className="w-full">
-          <Chat />
-        </div>
+
+        <Chat />
       </section>
       {/* <Invite /> */}
     </>
