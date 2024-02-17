@@ -16,6 +16,31 @@
 
 
 
+//GET Messages
+
+/api/messages/{participantId}
+
+
+POST messages
+//api/messages
+
+body
+
+{
+  "participants":{
+       "user2Id":"321",
+      "userId": "123"  
+  },
+  
+  "messages":[
+    {
+       "senderId": "321",
+      "receiverId":"123",
+      "message":"Are you okay?!!!!!!"
+    }
+    ]
+}
+
 
 
 

@@ -16,7 +16,7 @@ export default async function Category(context: any) {
   const todos: any = await getTodosById(id);
 
   //   console.log(todos);
-  console.log(id, category);
+  // console.log(id, category);
 
   return (
     <>

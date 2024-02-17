@@ -4,7 +4,7 @@ import { FaCopy, FaSearch } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
-import Chat from "./chat";
+import Chat, { Conversation } from "./chat";
 
 export interface UserInfo {
   name: string;
@@ -13,9 +13,21 @@ export interface UserInfo {
   userId: string;
 }
 
-export function MainTeams({ user }: { user: any }) {
+export function MainTeams({
+  user,
+  userId,
+  conversations,
+}: {
+  user: any;
+  userId: string;
+  conversations: any[];
+}) {
   const [userFound, setUserFound] = useState<any>([]);
-  const [chatConversation, setChatConversation] = useState<any>([]);
+  const [chatConversation, setChatConversation] = useState<Conversation>({
+    _id: "",
+    participants: { userId: "", userId2: "" },
+    messages: [],
+  });
 
   const findTeamMate = async (e: any) => {
     e.preventDefault();
@@ -35,7 +47,9 @@ export function MainTeams({ user }: { user: any }) {
     navigator.clipboard.writeText(id);
   };
 
-  const userId: string = user.user.userId;
+  // console.log(chatConversation);
+
+  // const userId: string = user.user.userId;
 
   return (
     <>
@@ -47,7 +61,7 @@ export function MainTeams({ user }: { user: any }) {
 
             <button
               onClick={() => {
-                CopyId(userId);
+                CopyId(user.user.email);
               }}
             >
               <FaCopy className="text-primary" />
@@ -100,21 +114,32 @@ export function MainTeams({ user }: { user: any }) {
             </>
           )}
 
-          <h1 className="bg-orange-400 text-white rounded-[50%] p-4 w-10 h-10 flex justify-center items-center">
-            GB
-          </h1>
-
-          <h1 className="bg-orange-400 text-white rounded-[50%] p-4 w-10 h-10 flex justify-center items-center">
-            GB
-          </h1>
-
-          <h1 className="bg-orange-400 text-white rounded-[50%] p-4 w-10 h-10 flex justify-center items-center">
-            GB
-          </h1>
+          {conversations.length > 0 ? (
+            <div>
+              {conversations.map((conversation: any, index: any) => (
+                <>
+                  <button
+                    type="button"
+                    className="bg-orange-400 text-white text-[.5rem] rounded-[50%] p-4 w-10 h-10 flex justify-center items-center my-2"
+                    onClick={() => setChatConversation(conversation)}
+                  >
+                    Chat <span>{index + 1}</span>
+                  </button>
+                </>
+              ))}
+            </div>
+          ) : (
+            <h1>Start Adding your friends</h1>
+          )}
         </section>
 
-        <Chat />
+        <Chat
+          conversation={chatConversation}
+          myId={userId}
+          setChatConversation={setChatConversation}
+        />
       </section>
+
       {/* <Invite /> */}
     </>
   );

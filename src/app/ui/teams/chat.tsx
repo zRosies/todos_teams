@@ -1,23 +1,147 @@
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { IoMdSend } from "react-icons/io";
+import { useEffect, useRef, useState } from "react";
 
-const Chat = () => {
+export interface Conversation {
+  _id: string;
+  participants: Participants;
+  messages: Message[];
+}
+
+export interface Message {
+  senderId: string;
+  receiverId: string;
+  message: string;
+  time: string;
+}
+
+export interface Participants {
+  userId: string;
+  userId2: string;
+  userId3?: string;
+}
+
+const Chat = ({
+  setChatConversation,
+  conversation,
+  myId,
+}: {
+  setChatConversation: Function;
+  conversation: Conversation;
+  myId: string;
+}) => {
+  const [message, setMessage] = useState<string>("");
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Scroll to the bottom of the container when conversation.messages change
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [conversation.messages]);
+
+  const sendMessage = async (e: any) => {
+    e.preventDefault();
+
+    const time = new Date(); // Get the current date and time
+    const formattedTime = time.toLocaleTimeString("en-US", {
+      hour12: false,
+      hour: "numeric",
+      minute: "2-digit",
+    });
+
+    console.log(formattedTime);
+
+    const message = e.target.message.value;
+
+    const receiverId = Object.values(conversation.participants).find(
+      (participantId) => participantId != myId
+    );
+    const newConversation = {
+      participants: {
+        userId: conversation.participants.userId,
+        user2Id: conversation.participants.userId2,
+      },
+
+      messages: [
+        {
+          receiverId: receiverId,
+          senderId: myId,
+          message: message,
+          time: formattedTime,
+        },
+      ],
+    };
+
+    e.currentTarget.reset();
+
+    setChatConversation((prevConversation: any) => ({
+      ...prevConversation,
+      messages: [...prevConversation.messages, newConversation.messages[0]],
+    }));
+
+    setMessage("");
+
+    const response = await fetch("/api/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newConversation),
+    });
+
+    // if (response.status == 201) {
+    // }
+
+    // console.log(response);
+  };
+
+  // console.log(conversation);
+
   return (
     <div className="flex justify-between w-full  flex-col ">
-      <h1 className="text-center flex justify-center gap-2 p-2">
+      <h1 className="text-center flex justify-center gap-2 p-2 border-b-2">
         Chat{" "}
         <span>
           <IoChatbubbleEllipsesSharp className="text-hover h-5 w-5" />
         </span>
       </h1>
+
+      <div
+        ref={containerRef}
+        className="flex flex-col my-2 p-2 max-h-[300px] overflow-y-scroll "
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "#615ECC #fff",
+        }}
+      >
+        {conversation.messages.map((message: Message) => {
+          return (
+            <>
+              <p
+                className={`${
+                  myId === message.senderId
+                    ? " self-end p-2 bg-hover text-white rounded-tl-[18px] rounded-tr-[20px] rounded-bl-[20px]"
+                    : "self-start p-2 rounded-tl-[18px] rounded-tr-[20px] rounded-br-[20px] bg-[#f8f5f5]"
+                } text-[.7rem] flex my-1 `}
+              >
+                {message.message}
+                <span className="text-[.5rem] ml-2 flex items-end">
+                  {message.time}
+                </span>
+              </p>
+            </>
+          );
+        })}
+      </div>
+
       <div>
-        <div className="h-[300px]"></div>
-        <form className="flex flex-col justify-end">
+        <form className="flex flex-col justify-end" onSubmit={sendMessage}>
           <label htmlFor="message">
             <input
               type="text"
               id="message"
               name="message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               required
               className="outline-none w-[85%] bg-neutral-200 rounded-md text-[1rem] pl-2 py-1 my-2"
               placeholder="Type message..."
