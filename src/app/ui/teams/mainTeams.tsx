@@ -3,8 +3,9 @@ import { IoPersonAdd } from "react-icons/io5";
 import { FaCopy, FaSearch } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Chat, { Conversation } from "./chat";
+import { pusherClient } from "../../api/pusher/pusher";
 
 export interface UserInfo {
   name: string;
@@ -20,7 +21,7 @@ export function MainTeams({
 }: {
   user: any;
   userId: string;
-  conversations: any[];
+  conversations: any;
 }) {
   const [userFound, setUserFound] = useState<any>([]);
   const [chatConversation, setChatConversation] = useState<Conversation>({
@@ -28,6 +29,10 @@ export function MainTeams({
     participants: { userId: "", userId2: "" },
     messages: [],
   });
+
+  // const pusherClient = new pusherClient(process.env.KEY!, {
+  //   cluster: "us2",
+  // });
 
   const findTeamMate = async (e: any) => {
     e.preventDefault();
@@ -47,7 +52,20 @@ export function MainTeams({
     navigator.clipboard.writeText(id);
   };
 
-  // console.log(chatConversation);
+  useEffect(() => {
+    pusherClient.subscribe("messages");
+    pusherClient.bind("incoming-message", (message: any) => {
+      setChatConversation((prevConversation) => ({
+        ...prevConversation,
+        messages: [...prevConversation.messages, message],
+      }));
+    });
+    return () => {
+      pusherClient.unsubscribe("messages");
+    };
+  }, []);
+
+  console.log(chatConversation);
 
   // const userId: string = user.user.userId;
 
@@ -67,7 +85,7 @@ export function MainTeams({
               <FaCopy className="text-primary" />
             </button>
           </span>
-          <div className="flex items-center gap-2 mx-2">
+          <div className="flex items-center gap-2 mx-2 border-2">
             <form action="" className="flex" onSubmit={findTeamMate}>
               <label htmlFor="search">
                 <input
@@ -121,7 +139,12 @@ export function MainTeams({
                   <button
                     type="button"
                     className="bg-orange-400 text-white text-[.5rem] rounded-[50%] p-4 w-10 h-10 flex justify-center items-center my-2"
-                    onClick={() => setChatConversation(conversation)}
+                    onClick={() =>
+                      setChatConversation((prevConversation) => ({
+                        ...prevConversation,
+                        messages: conversation.messages, // Update messages part only
+                      }))
+                    }
                   >
                     Chat <span>{index + 1}</span>
                   </button>

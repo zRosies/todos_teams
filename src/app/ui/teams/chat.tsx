@@ -87,11 +87,6 @@ const Chat = ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newConversation),
     });
-
-    // if (response.status == 201) {
-    // }
-
-    // console.log(response);
   };
 
   // console.log(conversation);
