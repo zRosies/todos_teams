@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     const teste = await pusherServer.trigger(
       "messages",
       "incoming-message",
-      body.messages[0]
+      body.messages
     );
     // console.log(body);
     const data = await postMessage(body);

@@ -55,14 +55,14 @@ export function TodoList({
     // console.log("triggered");
   }, [todos]);
 
-  console.log(todos.length);
+  // console.log(todos.length);
 
   const SearchTodo = (e: any) => {
     e.preventDefault();
 
     const query = e.target.elements.search.value;
 
-    console.log(query);
+    // console.log(query);
 
     router.push(`/dashboard/category/1?category=${query}&id=122292506`);
   };

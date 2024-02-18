@@ -54,7 +54,7 @@ export function CategoryList({
     // console.log("triggered");
   }, [todos]);
 
-  console.log(todos.length);
+  // console.log(todos.length);
 
   return (
     <>

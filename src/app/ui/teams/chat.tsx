@@ -50,7 +50,7 @@ const Chat = ({
       minute: "2-digit",
     });
 
-    console.log(formattedTime);
+    // console.log(formattedTime);
 
     const message = e.target.message.value;
 
@@ -77,7 +77,7 @@ const Chat = ({
 
     setChatConversation((prevConversation: any) => ({
       ...prevConversation,
-      messages: [...prevConversation.messages, newConversation.messages[0]],
+      messages: [...prevConversation.messages],
     }));
 
     setMessage("");
@@ -112,6 +112,7 @@ const Chat = ({
           return (
             <>
               <p
+                key={message.receiverId}
                 className={`${
                   myId === message.senderId
                     ? " self-end p-2 bg-hover text-white rounded-tl-[18px] rounded-tr-[20px] rounded-bl-[20px]"

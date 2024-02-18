@@ -51,21 +51,28 @@ export function MainTeams({
   const CopyId = (id: string) => {
     navigator.clipboard.writeText(id);
   };
+  // ...prevConversation,
+  // messages: [...prevConversation.messages, message],
 
   useEffect(() => {
     pusherClient.subscribe("messages");
     pusherClient.bind("incoming-message", (message: any) => {
-      setChatConversation((prevConversation) => ({
-        ...prevConversation,
-        messages: [...prevConversation.messages, message],
-      }));
+      setChatConversation((prevConversation: any) =>
+        // console.log(chatConversation),
+        // console.log(message[0]),
+        // console.log("message" + JSON.stringify(message[0])),
+        ({
+          ...prevConversation,
+          messages: [...prevConversation.messages, message[0]],
+        })
+      );
     });
     return () => {
       pusherClient.unsubscribe("messages");
     };
   }, []);
 
-  console.log(chatConversation);
+  // console.log(chatConversation);
 
   // const userId: string = user.user.userId;
 
@@ -139,12 +146,7 @@ export function MainTeams({
                   <button
                     type="button"
                     className="bg-orange-400 text-white text-[.5rem] rounded-[50%] p-4 w-10 h-10 flex justify-center items-center my-2"
-                    onClick={() =>
-                      setChatConversation((prevConversation) => ({
-                        ...prevConversation,
-                        messages: conversation.messages, // Update messages part only
-                      }))
-                    }
+                    onClick={() => setChatConversation(conversation)}
                   >
                     Chat <span>{index + 1}</span>
                   </button>

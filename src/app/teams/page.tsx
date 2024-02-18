@@ -13,7 +13,7 @@ export default async function Teams() {
 
   const conversations = await getConversations(userId);
 
-  console.log(conversations);
+  // console.log(conversations);
 
   return (
     <>
