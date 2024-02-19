@@ -13,10 +13,13 @@ export async function POST(req: Request) {
       body.messages
     );
     // console.log(body);
+
+    console.log(body);
+
     const data = await postMessage(body);
 
     return NextResponse.json(
-      { message: "Message sent successfully" },
+      { message: "Message sent successfully", data },
       { status: 201 }
     );
   } catch (error) {}

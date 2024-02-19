@@ -23,11 +23,13 @@ export interface Participants {
 
 const Chat = ({
   setChatConversation,
+  setUpdatedConversations,
   conversation,
   myId,
 }: {
   setChatConversation: Function;
   conversation: Conversation;
+  setUpdatedConversations: Function;
   myId: string;
 }) => {
   const [message, setMessage] = useState<string>("");
@@ -75,10 +77,10 @@ const Chat = ({
 
     e.currentTarget.reset();
 
-    setChatConversation((prevConversation: any) => ({
-      ...prevConversation,
-      messages: [...prevConversation.messages],
-    }));
+    // setChatConversation((prevConversation: any) => ({
+    //   ...prevConversation,
+    //   messages: [...prevConversation.messages],
+    // }));
 
     setMessage("");
 
@@ -87,6 +89,16 @@ const Chat = ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newConversation),
     });
+
+    if (response.status == 201) {
+      const messagesUpdate = await fetch(`/api/messages/${myId}`);
+      const data = await messagesUpdate.json();
+
+      setUpdatedConversations(data);
+    }
+    console.log(response);
+
+    // console.log(response);
   };
 
   // console.log(conversation);
@@ -108,25 +120,21 @@ const Chat = ({
           scrollbarColor: "#615ECC #fff",
         }}
       >
-        {conversation.messages.map((message: Message) => {
-          return (
-            <>
-              <p
-                key={message.receiverId}
-                className={`${
-                  myId === message.senderId
-                    ? " self-end p-2 bg-hover text-white rounded-tl-[18px] rounded-tr-[20px] rounded-bl-[20px]"
-                    : "self-start p-2 rounded-tl-[18px] rounded-tr-[20px] rounded-br-[20px] bg-[#f8f5f5]"
-                } text-[.7rem] flex my-1 `}
-              >
-                {message.message}
-                <span className="text-[.5rem] ml-2 flex items-end">
-                  {message.time}
-                </span>
-              </p>
-            </>
-          );
-        })}
+        {conversation.messages.map((message: Message, index) => (
+          <p
+            key={`${message}${index}`}
+            className={`${
+              myId === message.senderId
+                ? " self-end p-2 bg-hover text-white rounded-tl-[18px] rounded-tr-[20px] rounded-bl-[20px]"
+                : "self-start p-2 rounded-tl-[18px] rounded-tr-[20px] rounded-br-[20px] bg-[#f8f5f5]"
+            } text-[.7rem] flex my-1 `}
+          >
+            {message.message}
+            <span className="text-[.5rem] ml-2 flex items-end">
+              {message.time}
+            </span>
+          </p>
+        ))}
       </div>
 
       <div>

@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import Chat, { Conversation } from "./chat";
 import { pusherClient } from "../../api/pusher/pusher";
 
+import { IoMdSend } from "react-icons/io";
+import { IoMdPersonAdd } from "react-icons/io";
+
 export interface UserInfo {
   name: string;
   email: string;
@@ -29,10 +32,12 @@ export function MainTeams({
     participants: { userId: "", userId2: "" },
     messages: [],
   });
+  const CopyId = (id: string) => {
+    navigator.clipboard.writeText(id);
+  };
 
-  // const pusherClient = new pusherClient(process.env.KEY!, {
-  //   cluster: "us2",
-  // });
+  const [updatedConversations, setUpdatedConversations] =
+    useState<Array<Conversation>>(conversations);
 
   const findTeamMate = async (e: any) => {
     e.preventDefault();
@@ -48,31 +53,70 @@ export function MainTeams({
 
     setUserFound(data);
   };
-  const CopyId = (id: string) => {
-    navigator.clipboard.writeText(id);
-  };
-  // ...prevConversation,
-  // messages: [...prevConversation.messages, message],
 
+  let messageDuplicated: any;
   useEffect(() => {
     pusherClient.subscribe("messages");
     pusherClient.bind("incoming-message", (message: any) => {
-      setChatConversation((prevConversation: any) =>
-        // console.log(chatConversation),
-        // console.log(message[0]),
-        // console.log("message" + JSON.stringify(message[0])),
-        ({
-          ...prevConversation,
+      if (messageDuplicated !== message[0]) {
+        setChatConversation((prevConversation: any) => ({
+          _id: prevConversation._id,
+          participants: prevConversation.participants,
+
           messages: [...prevConversation.messages, message[0]],
-        })
-      );
+        }));
+        messageDuplicated = message[0];
+      }
     });
     return () => {
       pusherClient.unsubscribe("messages");
     };
   }, []);
 
-  // console.log(chatConversation);
+  useEffect(() => {
+    const updateChatConversation = async () => {
+      const response = await fetch(`/api/messages/${userId}`);
+
+      const data = await response.json();
+      setUpdatedConversations(data);
+    };
+    updateChatConversation();
+  }, [chatConversation]);
+
+  const startNewConversation = async () => {
+    const time = new Date(); // Get the current date and time
+    const formattedTime = time.toLocaleTimeString("en-US", {
+      hour12: false,
+      hour: "numeric",
+      minute: "2-digit",
+    });
+
+    const body = {
+      participants: {
+        userId: user._id,
+        user2Id: userId,
+      },
+      messages: [
+        // {
+        //   receiverId: user._id,
+        //   senderId: userId,
+        //   message: "",
+        //   time: formattedTime,
+        // },
+      ],
+    };
+    const data = await fetch(`/api/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    console.log(await data.json());
+  };
+
+  // console.log(updatedConversations);
+
+  // console.log(chatConversation.messages);
 
   // const userId: string = user.user.userId;
 
@@ -92,8 +136,12 @@ export function MainTeams({
               <FaCopy className="text-primary" />
             </button>
           </span>
-          <div className="flex items-center gap-2 mx-2 border-2">
-            <form action="" className="flex" onSubmit={findTeamMate}>
+          <div className="flex items-center gap-2 border-[1.5px] border-hover  rounded-xl">
+            <form
+              action=""
+              className="flex justify-between p-[0.20rem]"
+              onSubmit={findTeamMate}
+            >
               <label htmlFor="search">
                 <input
                   type="text"
@@ -102,8 +150,11 @@ export function MainTeams({
                   className="pl-2 p-2 max-w-[150px] text-[.6rem] outline-none"
                 />
               </label>
-              <button type="submit" className="bg-primary p-1 rounded-[50%]">
-                <IoSearchOutline className="text-white h-3 w-5" />
+              <button
+                type="submit"
+                className="bg-primary p-2 rounded-[50%] ml-4"
+              >
+                <IoSearchOutline className="text-white h-4 w-4" />
               </button>
             </form>
           </div>
@@ -123,8 +174,11 @@ export function MainTeams({
         <section className="flex  flex-row md:flex-col gap-2 border-r-[1px] border-gray-200 md:h-[300px] md:w-[200px]">
           {userFound._id && (
             <>
-              <p>User found</p>
-              <button className="flex items-center gap-2 mx-2">
+              <p className="text-[.9rem]">User found</p>
+              <button
+                className="flex items-center gap-2 mx-2"
+                onClick={startNewConversation}
+              >
                 <div className="bg-primary text-white p-2 rounded-[50%] w-[30px] h-[30px] flex justify-center items-center">
                   {" "}
                   <span className="text-[.7rem]">
@@ -135,22 +189,24 @@ export function MainTeams({
                   </span>
                 </div>
                 <p className="text-[.6rem]">{userFound.email}</p>
+                <span>
+                  <IoMdPersonAdd className="text-hover" />
+                </span>
               </button>
             </>
           )}
 
-          {conversations.length > 0 ? (
+          {updatedConversations.length > 0 ? (
             <div>
-              {conversations.map((conversation: any, index: any) => (
-                <>
-                  <button
-                    type="button"
-                    className="bg-orange-400 text-white text-[.5rem] rounded-[50%] p-4 w-10 h-10 flex justify-center items-center my-2"
-                    onClick={() => setChatConversation(conversation)}
-                  >
-                    Chat <span>{index + 1}</span>
-                  </button>
-                </>
+              {updatedConversations.map((conversation: any, index: any) => (
+                <button
+                  key={`a${index}`}
+                  type="button"
+                  className="bg-orange-400 text-white text-[.5rem] rounded-[50%] p-4 w-10 h-10 flex justify-center items-center my-2"
+                  onClick={() => setChatConversation(conversation)}
+                >
+                  Chat <span>{index + 1}</span>
+                </button>
               ))}
             </div>
           ) : (
@@ -162,6 +218,7 @@ export function MainTeams({
           conversation={chatConversation}
           myId={userId}
           setChatConversation={setChatConversation}
+          setUpdatedConversations={setUpdatedConversations}
         />
       </section>
 
