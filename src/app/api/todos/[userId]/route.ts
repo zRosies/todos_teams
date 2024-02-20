@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import {
   deleteTodoById,
   getTodosById,
   postTodosById,
-  updateTodoById,
 } from "../../controllers/controllers";
 
 export async function GET(req: Request, context: any) {

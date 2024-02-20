@@ -6,9 +6,11 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import Chat, { Conversation } from "./chat";
 import { pusherClient } from "../../api/pusher/pusher";
+import { FaCheck } from "react-icons/fa6";
 
 import { IoMdSend } from "react-icons/io";
 import { IoMdPersonAdd } from "react-icons/io";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export interface UserInfo {
   name: string;
@@ -27,20 +29,28 @@ export function MainTeams({
   conversations: any;
 }) {
   const [userFound, setUserFound] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loading2, setLoading2] = useState<boolean>(false);
+
+  const [updatedConversations, setUpdatedConversations] =
+    useState<Array<Conversation>>(conversations);
   const [chatConversation, setChatConversation] = useState<Conversation>({
     _id: "",
-    participants: { userId: "", userId2: "" },
+    participants: { userId: "", user2Id: "" },
     messages: [],
   });
+
   const CopyId = (id: string) => {
     navigator.clipboard.writeText(id);
   };
 
-  const [updatedConversations, setUpdatedConversations] =
-    useState<Array<Conversation>>(conversations);
+  console.log(user);
+
+  // console.log(userFound);
 
   const findTeamMate = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
@@ -50,6 +60,8 @@ export function MainTeams({
     });
 
     const data = await response.json();
+
+    setLoading(false);
 
     setUserFound(data);
   };
@@ -73,17 +85,22 @@ export function MainTeams({
     };
   }, []);
 
-  useEffect(() => {
-    const updateChatConversation = async () => {
-      const response = await fetch(`/api/messages/${userId}`);
+  const updateChatConversation = async () => {
+    const response = await fetch(`/api/messages/${userId}`);
 
-      const data = await response.json();
-      setUpdatedConversations(data);
-    };
+    const data = await response.json();
+    setUpdatedConversations(data);
+
+    return response;
+  };
+
+  useEffect(() => {
     updateChatConversation();
-  }, [chatConversation]);
+    // setChatConversation(updatedConversations[updatedConversations.length - 1]);
+  }, [chatConversation, userFound]);
 
   const startNewConversation = async () => {
+    setLoading2(true);
     const time = new Date(); // Get the current date and time
     const formattedTime = time.toLocaleTimeString("en-US", {
       hour12: false,
@@ -93,16 +110,16 @@ export function MainTeams({
 
     const body = {
       participants: {
-        userId: user._id,
+        userId: userFound._id,
         user2Id: userId,
       },
       messages: [
-        // {
-        //   receiverId: user._id,
-        //   senderId: userId,
-        //   message: "",
-        //   time: formattedTime,
-        // },
+        {
+          receiverId: userFound._id,
+          senderId: userId,
+          message: "Conversation initialized!",
+          time: formattedTime,
+        },
       ],
     };
     const data = await fetch(`/api/messages`, {
@@ -111,13 +128,20 @@ export function MainTeams({
       body: JSON.stringify(body),
     });
 
-    console.log(await data.json());
+    // console.log(await data.json());
+    setUserFound({ _id: "s3nt", email: "Submission sent!" });
+
+    setChatConversation({
+      _id: "",
+      participants: { userId: "", user2Id: "" },
+      messages: [],
+    });
+
+    setLoading2(false);
+    // console.log(updatedConversations);
   };
 
-  // console.log(updatedConversations);
-
   // console.log(chatConversation.messages);
-
   // const userId: string = user.user.userId;
 
   return (
@@ -154,7 +178,11 @@ export function MainTeams({
                 type="submit"
                 className="bg-primary p-2 rounded-[50%] ml-4"
               >
-                <IoSearchOutline className="text-white h-4 w-4" />
+                {loading ? (
+                  <AiOutlineLoading className="text-white animate-loading" />
+                ) : (
+                  <IoSearchOutline className="text-white h-4 w-4" />
+                )}
               </button>
             </form>
           </div>
@@ -179,19 +207,32 @@ export function MainTeams({
                 className="flex items-center gap-2 mx-2"
                 onClick={startNewConversation}
               >
-                <div className="bg-primary text-white p-2 rounded-[50%] w-[30px] h-[30px] flex justify-center items-center">
-                  {" "}
-                  <span className="text-[.7rem]">
-                    {userFound.email.slice(0, 1).toLocaleUpperCase()}
-                  </span>
-                  <span className="text-[.7rem]">
-                    {userFound.email.slice(1, 2).toLocaleUpperCase()}
-                  </span>
-                </div>
-                <p className="text-[.6rem]">{userFound.email}</p>
-                <span>
-                  <IoMdPersonAdd className="text-hover" />
-                </span>
+                {userFound._id === "s3nt" ? (
+                  <p className="text-[.6rem] flex">
+                    {userFound.email}{" "}
+                    <FaCheck className="text-green-500 ml-2" />
+                  </p>
+                ) : (
+                  <>
+                    <div className="bg-primary text-white p-2 rounded-[50%] w-[30px] h-[30px] flex justify-center items-center">
+                      {" "}
+                      <span className="text-[.7rem]">
+                        {userFound.email.slice(0, 1).toLocaleUpperCase()}
+                      </span>
+                      <span className="text-[.7rem]">
+                        {userFound.email.slice(1, 2).toLocaleUpperCase()}
+                      </span>
+                    </div>
+                    <p className="text-[.6rem]">{userFound.email}</p>
+                    <span className="p-2 rounded-[50%] bg-hover">
+                      {loading2 ? (
+                        <AiOutlineLoading className="text-white animate-loading" />
+                      ) : (
+                        <IoMdPersonAdd className="text-white" />
+                      )}
+                    </span>
+                  </>
+                )}
               </button>
             </>
           )}
@@ -210,7 +251,7 @@ export function MainTeams({
               ))}
             </div>
           ) : (
-            <h1>Start Adding your friends</h1>
+            <p className="text-[.7rem]">Start Adding your friends</p>
           )}
         </section>
 

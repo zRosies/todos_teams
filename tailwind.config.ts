@@ -38,6 +38,7 @@ const config: Config = {
       navOpen: "navOpen .4s linear",
       navClosed: "navClosed .2s linear",
       cardOpen: "navOpen .3s linear",
+      loading: "loading .8s linear infinite",
     },
     keyframes: {
       slide: {
@@ -68,6 +69,14 @@ const config: Config = {
           width: "0%",
           visibility: "hidden",
           opacity: "0",
+        },
+      },
+      loading: {
+        "0%": {
+          transform: "rotate(0)",
+        },
+        "100%": {
+          transform: "rotate(360deg)",
         },
       },
     },

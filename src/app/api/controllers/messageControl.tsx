@@ -9,7 +9,7 @@ export async function getConversations(participantId: string) {
     .find({
       $or: [
         { "participants.userId": participantId },
-        { "participants.userId2": participantId },
+        { "participants.user2Id": participantId },
       ],
     })
     .toArray();
@@ -22,8 +22,8 @@ export async function getConversations(participantId: string) {
 interface MessageBody {
   participants: {
     userId: string;
-    userId2: string;
-    userId3?: string;
+    user2Id: string;
+    user3Id?: string;
   };
   messages: any[];
 }
@@ -31,14 +31,14 @@ interface MessageBody {
 export async function postMessage(body: MessageBody) {
   const db = await initDb({ collection: "messages" });
 
-  const { userId, userId2 } = body.participants;
+  const { userId, user2Id } = body.participants;
 
   const existingConversation = await db.findOne({
-    "participants.userId": { $in: [userId, userId2] },
-    "participants.user2Id": { $in: [userId, userId2] },
+    "participants.userId": { $in: [userId, user2Id] },
+    "participants.user2Id": { $in: [userId, user2Id] },
   });
 
-  // console.log(existingConversation);
+  console.log(existingConversation);
 
   if (existingConversation) {
     const response = await db.updateOne(

@@ -17,8 +17,8 @@ export interface Message {
 
 export interface Participants {
   userId: string;
-  userId2: string;
-  userId3?: string;
+  user2Id: string;
+  user3Id?: string;
 }
 
 const Chat = ({
@@ -35,12 +35,12 @@ const Chat = ({
   const [message, setMessage] = useState<string>("");
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Scroll to the bottom of the container when conversation.messages change
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [conversation.messages]);
+  // useEffect(() => {
+  //   // Scroll to the bottom of the container when conversation.messages change
+  //   if (containerRef.current) {
+  //     containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  //   }
+  // }, [conversation.messages]);
 
   const sendMessage = async (e: any) => {
     e.preventDefault();
@@ -62,7 +62,7 @@ const Chat = ({
     const newConversation = {
       participants: {
         userId: conversation.participants.userId,
-        user2Id: conversation.participants.userId2,
+        user2Id: conversation.participants.user2Id,
       },
 
       messages: [
