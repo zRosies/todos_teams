@@ -44,7 +44,7 @@ export function MainTeams({
     navigator.clipboard.writeText(id);
   };
 
-  console.log(user);
+  // console.log(user);
 
   // console.log(userFound);
 
@@ -60,14 +60,12 @@ export function MainTeams({
     });
 
     const data = await response.json();
-
     setLoading(false);
-
     setUserFound(data);
   };
 
-  let messageDuplicated: any;
   useEffect(() => {
+    let messageDuplicated: any;
     pusherClient.subscribe("messages");
     pusherClient.bind("incoming-message", (message: any) => {
       if (messageDuplicated !== message[0]) {
@@ -85,19 +83,17 @@ export function MainTeams({
     };
   }, []);
 
-  const updateChatConversation = async () => {
-    const response = await fetch(`/api/messages/${userId}`);
-
-    const data = await response.json();
-    setUpdatedConversations(data);
-
-    return response;
-  };
-
   useEffect(() => {
+    const updateChatConversation = async () => {
+      const response = await fetch(`/api/messages/${userId}`);
+
+      const data = await response.json();
+      setUpdatedConversations(data);
+
+      return response;
+    };
     updateChatConversation();
-    // setChatConversation(updatedConversations[updatedConversations.length - 1]);
-  }, [chatConversation, userFound]);
+  }, [chatConversation, userFound, userId]);
 
   const startNewConversation = async () => {
     setLoading2(true);

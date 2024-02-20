@@ -33,26 +33,25 @@ export function CategoryList({
   const querySearch = new RegExp(type.toLocaleLowerCase(), "i");
   const normalTypes = /study|development|other/i;
 
-  const postTodos = async (todos: any) => {
-    try {
-      const response = await fetch(`/api/todos/${userId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(todos),
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   useEffect(() => {
+    const postTodos = async (todos: any) => {
+      try {
+        const response = await fetch(`/api/todos/${userId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(todos),
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     if (todos.length > 0) {
       postTodos(todos);
     }
     // console.log("triggered");
-  }, [todos]);
+  }, [todos, userId]);
 
   // console.log(todos.length);
 
