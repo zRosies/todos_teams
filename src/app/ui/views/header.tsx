@@ -20,12 +20,7 @@ const Header = async () => {
                 : "/"
             }
           >
-            <Image
-              src={"/carouselImages/home.png"}
-              alt="logo"
-              width={50}
-              height={50}
-            />
+            <Image src={"/home.png"} alt="logo" width={50} height={50} />
           </Link>
           <div className="hidden md:block">
             <p>To</p>

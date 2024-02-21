@@ -24,7 +24,7 @@ const config: Config = {
         carouselRight: "radial-gradient(var(--tw-gradient-stops))",
       },
       colors: {
-        primary: "#7573D7",
+        primary: "#5e5cc4",
         secondary: "#151515",
         hover: "#615ECC",
         grayzy: "#19192A",

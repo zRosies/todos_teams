@@ -1,17 +1,16 @@
 import Image from "next/image";
-import adidas from "@/app/carouselPics/adidas.png";
 
 export default function BrandCarousel() {
   const brands = [
-    { name: "apple", src: "/carouselImages/apple.png" },
-    { name: "coca", src: "/carouselImages/coca.png" },
-    { name: "f1", src: "/carouselImages/f1.png" },
-    { name: "nike", src: "/carouselImages/nike.png" },
-    { name: "disney", src: "/carouselImages/disney.png" },
-    { name: "dell", src: "/carouselImages/dell.png" },
-    { name: "adidas", src: "/carouselImages/adidas.png" },
-    { name: "spofty", src: "/carouselImages/spotfy.png" },
-    { name: "microsoft", src: "/carouselImages/micro.png" },
+    { name: "apple", src: "/apple.png" },
+    { name: "coca", src: "/coca.png" },
+    { name: "f1", src: "/f1.png" },
+    { name: "nike", src: "/nike.png" },
+    { name: "disney", src: "/disney.png" },
+    { name: "dell", src: "/dell.png" },
+    { name: "adidas", src: "/adidas.png" },
+    { name: "spofty", src: "/spotfy.png" },
+    { name: "microsoft", src: "/micro.png" },
   ];
   return (
     <>
