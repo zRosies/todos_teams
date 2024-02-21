@@ -63,7 +63,7 @@ export function TodoList({
 
     // console.log(query);
 
-    router.push(`/dashboard/category/1?category=${query}&id=122292506`);
+    router.push(`/dashboard/category/1?category=${query}&id=${userId}`);
   };
 
   return (

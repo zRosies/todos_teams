@@ -18,14 +18,14 @@ export type TodoObject =
     }
   | any;
 const Dashboard = async (context: any) => {
+  const session: any = await ServerComponent();
+  if (!session) {
+    redirect("/");
+  }
+
   const { params } = context;
   const userId = params.userId;
   const todos: TodoObject = await getTodosById(userId);
-  const session: any = await ServerComponent();
-
-  if (session === null) {
-    redirect("/");
-  }
 
   return (
     <>

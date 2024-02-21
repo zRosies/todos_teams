@@ -11,9 +11,17 @@ import { RiSparkling2Fill } from "react-icons/ri";
 const Navigation = ({ session }: any) => {
   const [menuOpen, setMenuOpen] = useState("animate-navClosed");
 
+  const loggedIn = useSession();
+
   const handleMenuOpen = () => {
     setMenuOpen("animate-navOpen");
   };
+
+  useEffect(() => {
+    if (loggedIn.data?.user && session == null) {
+      window.location.reload();
+    }
+  }, [loggedIn]);
 
   return (
     <>
@@ -28,7 +36,7 @@ const Navigation = ({ session }: any) => {
             </Link>
           )}
         </ul>
-        {session != null && (
+        {session && (
           <div className="flex justify-between w-[120px] items-center mr-1">
             <Link
               href={"/teams"}

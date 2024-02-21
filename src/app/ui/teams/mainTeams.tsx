@@ -11,6 +11,7 @@ import { FaCheck } from "react-icons/fa6";
 import { IoMdSend } from "react-icons/io";
 import { IoMdPersonAdd } from "react-icons/io";
 import { AiOutlineLoading } from "react-icons/ai";
+import { randomUUID } from "crypto";
 
 export interface UserInfo {
   name: string;
@@ -38,6 +39,7 @@ export function MainTeams({
     _id: "",
     participants: { userId: "", user2Id: "" },
     messages: [],
+    conversationId: "",
   });
 
   const CopyId = (id: string) => {
@@ -64,14 +66,15 @@ export function MainTeams({
     setUserFound(data);
   };
 
+  let messageDuplicated: any;
   useEffect(() => {
-    let messageDuplicated: any;
-    pusherClient.subscribe("messages");
+    pusherClient.subscribe("message");
     pusherClient.bind("incoming-message", (message: any) => {
       if (messageDuplicated !== message[0]) {
         setChatConversation((prevConversation: any) => ({
           _id: prevConversation._id,
           participants: prevConversation.participants,
+          conversationId: prevConversation.conversationId,
 
           messages: [...prevConversation.messages, message[0]],
         }));
@@ -79,7 +82,7 @@ export function MainTeams({
       }
     });
     return () => {
-      pusherClient.unsubscribe("messages");
+      pusherClient.unsubscribe("message");
     };
   }, []);
 
@@ -109,6 +112,7 @@ export function MainTeams({
         userId: userFound._id,
         user2Id: userId,
       },
+      conversationId: crypto.randomUUID(),
       messages: [
         {
           receiverId: userFound._id,
@@ -131,6 +135,7 @@ export function MainTeams({
       _id: "",
       participants: { userId: "", user2Id: "" },
       messages: [],
+      conversationId: "",
     });
 
     setLoading2(false);
@@ -182,20 +187,6 @@ export function MainTeams({
               </button>
             </form>
           </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            className="p-2 bg-primary rounded-[50%] shadow-lg"
-          >
-            <FaBell className="text-white h-4 w-4 " />
-          </button>
-        </div>
-      </section>
-
-      <section className="flex flex-col-reverse md:flex-row border-1 gap-2 mt-5 shadow-lg shadow-gray-300 rounded-[10px] p-2 ">
-        <section className="flex  flex-row md:flex-col gap-2 border-r-[1px] border-gray-200 md:h-[300px] md:w-[200px]">
           {userFound._id && (
             <>
               <p className="text-[.9rem]">User found</p>
@@ -232,7 +223,20 @@ export function MainTeams({
               </button>
             </>
           )}
+        </div>
 
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="p-2 bg-primary rounded-[50%] shadow-lg"
+          >
+            <FaBell className="text-white h-4 w-4 " />
+          </button>
+        </div>
+      </section>
+
+      <section className="flex flex-col-reverse md:flex-row border-1 gap-2 mt-5 shadow-lg shadow-gray-300 rounded-[10px] p-2 ">
+        <section className="flex  flex-row md:flex-col gap-2 border-r-[1px] border-gray-200 md:h-[300px] md:w-[200px]">
           {updatedConversations.length > 0 ? (
             <div>
               {updatedConversations.map((conversation: any, index: any) => (

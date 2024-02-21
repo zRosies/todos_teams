@@ -1,22 +1,17 @@
-// "use client";
+import { ServerComponent } from "@/app/api/auth/[...nextauth]/options";
 import { getTodosById } from "@/app/api/controllers/controllers";
 import CategoryList from "@/app/ui/dashboard/categoryTodos";
-import Todos from "@/app/ui/dashboard/todos";
-
-import { useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default async function Category(context: any) {
-  //   const params = useSearchParams();
+  const session: any = await ServerComponent();
 
+  if (!session) {
+    redirect("/");
+  }
   const id = context.searchParams.id;
   const category = context.searchParams.category;
-  //   const id = params.get("id");
-  //   const category = params.get("category");
-
   const todos: any = await getTodosById(id);
-
-  //   console.log(todos);
-  // console.log(id, category);
 
   return (
     <>

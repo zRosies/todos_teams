@@ -1,9 +1,11 @@
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { IoMdSend } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
+import { pusherClient } from "@/app/api/pusher/pusher";
 
 export interface Conversation {
   _id: string;
+  conversationId: string;
   participants: Participants;
   messages: Message[];
 }
@@ -35,12 +37,12 @@ const Chat = ({
   const [message, setMessage] = useState<string>("");
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   // Scroll to the bottom of the container when conversation.messages change
-  //   if (containerRef.current) {
-  //     containerRef.current.scrollTop = containerRef.current.scrollHeight;
-  //   }
-  // }, [conversation.messages]);
+  useEffect(() => {
+    // Scroll to the bottom of the container when conversation.messages change
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [conversation.messages]);
 
   const sendMessage = async (e: any) => {
     e.preventDefault();
@@ -64,7 +66,7 @@ const Chat = ({
         userId: conversation.participants.userId,
         user2Id: conversation.participants.user2Id,
       },
-
+      conversationId: conversation.conversationId,
       messages: [
         {
           receiverId: receiverId,
@@ -82,6 +84,8 @@ const Chat = ({
     //   messages: [...prevConversation.messages],
     // }));
 
+    console.log(newConversation);
+
     setMessage("");
 
     const response = await fetch("/api/messages", {
@@ -96,10 +100,27 @@ const Chat = ({
 
       setUpdatedConversations(data);
     }
-    console.log(response);
 
-    // console.log(response);
+    let messageDuplicated: any;
+    pusherClient.subscribe(conversation.conversationId);
+    pusherClient.bind("incoming-message", (message: any) => {
+      if (messageDuplicated !== message[0]) {
+        setChatConversation((prevConversation: any) => ({
+          _id: prevConversation._id,
+          participants: prevConversation.participants,
+          conversationId: prevConversation.conversationId,
+
+          messages: [...prevConversation.messages, message[0]],
+        }));
+        messageDuplicated = message[0];
+      }
+    });
+    return () => {
+      pusherClient.unsubscribe(conversation.conversationId);
+    };
   };
+
+  // console.log(conversation.conversationId);
 
   // console.log(conversation);
 
