@@ -26,7 +26,7 @@ const Navigation = ({ session }: any) => {
   return (
     <>
       <nav className="flex items-center mr-4">
-        <ul>
+        <div>
           {session === null && (
             <Link
               href="/login"
@@ -35,7 +35,7 @@ const Navigation = ({ session }: any) => {
               Sign in
             </Link>
           )}
-        </ul>
+        </div>
         {session && (
           <div className="flex justify-between w-[120px] items-center mr-1">
             <Link

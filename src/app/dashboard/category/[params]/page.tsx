@@ -1,7 +1,13 @@
 import { ServerComponent } from "@/app/api/auth/[...nextauth]/options";
 import { getTodosById } from "@/app/api/controllers/controllers";
 import CategoryList from "@/app/ui/dashboard/categoryTodos";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Todo | Todos",
+  description: "Todo website, log in and  start organizing your day.",
+};
 
 export default async function Category(context: any) {
   const session: any = await ServerComponent();

@@ -102,22 +102,23 @@ const Chat = ({
     }
 
     let messageDuplicated: any;
-    pusherClient.subscribe(conversation.conversationId);
-    pusherClient.bind("incoming-message", (message: any) => {
-      if (messageDuplicated !== message[0]) {
-        setChatConversation((prevConversation: any) => ({
-          _id: prevConversation._id,
-          participants: prevConversation.participants,
-          conversationId: prevConversation.conversationId,
 
-          messages: [...prevConversation.messages, message[0]],
-        }));
-        messageDuplicated = message[0];
-      }
-    });
-    return () => {
-      pusherClient.unsubscribe(conversation.conversationId);
-    };
+    // pusherClient.subscribe(conversation.conversationId);
+    // pusherClient.bind("incoming-message", (message: any) => {
+    //   if (messageDuplicated !== message[0]) {
+    //     setChatConversation((prevConversation: any) => ({
+    //       _id: prevConversation._id,
+    //       participants: prevConversation.participants,
+    //       conversationId: prevConversation.conversationId,
+
+    //       messages: [...prevConversation.messages, message[0]],
+    //     }));
+    //     messageDuplicated = message[0];
+    //   }
+    // });
+    // return () => {
+    //   pusherClient.unsubscribe(conversation.conversationId);
+    // };
   };
 
   // console.log(conversation.conversationId);

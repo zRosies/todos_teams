@@ -36,7 +36,7 @@ export default async function Home() {
             alt="todo"
             width={700}
             height={700}
-            className="w-[400px] h-[200px] md:w-[550px] md:h-[300px]"
+            className="w-full md:w-[550px]"
           />
         </div>
       </section>

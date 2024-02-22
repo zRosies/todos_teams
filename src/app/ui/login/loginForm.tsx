@@ -6,6 +6,7 @@ import GoogleIcon from "../icons/googleIcon";
 import { useEffect, useState } from "react";
 import { Session } from "inspector";
 import { getServerSession } from "next-auth";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function LoginForm({
   router,
@@ -17,8 +18,10 @@ export default function LoginForm({
   session?: Session;
 }) {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const teste = useSession();
   const handleSubmit = async (e: any) => {
+    setLoading(true);
     e.preventDefault();
 
     const email = e.target[0].value;
@@ -36,6 +39,7 @@ export default function LoginForm({
       router.push(`/`);
       setError("");
     }
+    setLoading(false);
   };
 
   return (
@@ -69,7 +73,9 @@ export default function LoginForm({
         className="flex flex-col max-w-[500px] mx-auto px-10 py-5 pb-20"
         onSubmit={handleSubmit}
       >
-        <label htmlFor="username"></label>
+        <label htmlFor="username">
+          <p className="sr-only">name</p>
+        </label>
         <input
           type="text"
           id="username"
@@ -78,7 +84,9 @@ export default function LoginForm({
           className="border-2 border-neutral-100 h-[40px] my-4"
           placeholder="Email"
         ></input>
-        <label htmlFor="password"></label>
+        <label htmlFor="password">
+          <p className="sr-only">password</p>
+        </label>
         <input
           type="password"
           id="password"
@@ -89,9 +97,14 @@ export default function LoginForm({
         ></input>
         <button
           type="submit"
-          className="bg-hover hover:bg-primary hover:bg-secondaryBlue duration-200 p-3 text-white rounded-sm"
+          className="bg-hover hover:bg-primary hover:bg-secondaryBlue items-center duration-200 p-3 text-white rounded-sm flex justify-center"
         >
-          Login
+          Login{" "}
+          {loading && (
+            <>
+              <AiOutlineLoading className="animate-loading text-white ml-2" />
+            </>
+          )}
         </button>
         <div className="text-center my-2">
           {error && <span className="text-red-400">{error}</span>}

@@ -1,13 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { AiOutlineLoading } from "react-icons/ai";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: any) => {
+    setError("");
     e.preventDefault();
+
+    setLoading(true);
 
     const email = e.target[0].value;
     const password = e.target[1].value;
@@ -15,6 +20,7 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
 
     if (password !== confirmPassword) {
       setError("The password must match");
+      setLoading(false);
       return;
     }
 
@@ -37,6 +43,7 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
         setError("");
         setRegOpen(false);
       }
+      setLoading(false);
     } catch (error: any) {
       console.log(error.message);
     }
@@ -84,8 +91,16 @@ export default function RegisterForm({ setRegOpen }: { setRegOpen: any }) {
           placeholder="Confirm Password"
           className="h-[40px] border-neutral-100 border-2 mb-8"
         ></input>
-        <button type="submit" className="bg-primary  p-3 text-white">
+        <button
+          type="submit"
+          className="bg-primary  p-3 text-white flex items-center justify-center"
+        >
           Register
+          {loading && (
+            <>
+              <AiOutlineLoading className="animate-loading text-white ml-2" />
+            </>
+          )}
         </button>
         {error && <span className="text-red-500 text-center">{error}</span>}
       </form>

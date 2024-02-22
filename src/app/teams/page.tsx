@@ -4,6 +4,12 @@ import { GetUserById } from "../api/controllers/controllers";
 import { MainTeams } from "../ui/teams/mainTeams";
 import { getConversations } from "../api/controllers/messageControl";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Todo | Teams",
+  description: "Todo website, start working with your teams.",
+};
 
 export default async function Teams() {
   const user = await ServerComponent();

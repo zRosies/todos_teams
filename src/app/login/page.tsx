@@ -3,6 +3,8 @@
 import { redirect } from "next/navigation";
 import LoginParent from "../ui/login/loginParent";
 import { ServerComponent } from "../api/auth/[...nextauth]/options";
+import { Suspense } from "react";
+import LoadingSkelecton from "./loading";
 
 export interface Session {
   user: {
@@ -21,7 +23,9 @@ export default async function Login() {
   }
   return (
     <>
-      <LoginParent session={session} />
+      <Suspense fallback={<LoadingSkelecton />}>
+        <LoginParent session={session} />
+      </Suspense>
     </>
   );
 }
