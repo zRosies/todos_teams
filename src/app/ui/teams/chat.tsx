@@ -128,6 +128,7 @@ const Chat = ({
   return (
     <div className="flex justify-between w-full  flex-col ">
       <h1 className="text-center flex justify-center gap-2 p-2 border-b-2">
+        <p className="sr-only">search button</p>
         Chat{" "}
         <span>
           <IoChatbubbleEllipsesSharp className="text-hover h-5 w-5" />
@@ -162,6 +163,7 @@ const Chat = ({
       <div>
         <form className="flex flex-col justify-end" onSubmit={sendMessage}>
           <label htmlFor="message">
+            <p className="sr-only">message input</p>
             <input
               type="text"
               id="message"
@@ -173,6 +175,7 @@ const Chat = ({
               placeholder="Type message..."
             />
             <button type="submit" className="bg-primary p-2 rounded-md mx-2">
+              <p className="sr-only">send message</p>
               <IoMdSend className="text-white" />
             </button>
           </label>

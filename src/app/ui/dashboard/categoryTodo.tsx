@@ -86,6 +86,7 @@ export function CategoryTodo({
                   type="button"
                   onClick={() => todoCompleted(todo.todoId)}
                 >
+                  <p className="sr-only">add todo</p>
                   {!todo.completed ? (
                     <CircleItem
                       background={"#E9ECEF"}

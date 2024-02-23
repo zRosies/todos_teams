@@ -99,13 +99,16 @@ export function TodoList({
             type="submit"
             className="flex gap-5 items-center w-full bg-hover text-white max-w-[2.5rem] justify-center  h-[2.5rem] rounded-[6px]"
           >
+            <p className="sr-only">search todos</p>
             <CiSearch className="w-5 h-5" />
           </button>
           <label htmlFor="search">
+            <p className="sr-only">search input</p>
             <input
               name="search"
               type="text"
               placeholder="Search..."
+              id="search"
               className="w-full max-w-[800px] border-2 h-[2.5rem] rounded-[8px] pl-2"
             />
           </label>

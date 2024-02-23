@@ -158,6 +158,7 @@ export function MainTeams({
                 CopyId(user.user.email);
               }}
             >
+              <p className="sr-only">copy email</p>
               <FaCopy className="text-primary" />
             </button>
           </span>
@@ -168,9 +169,11 @@ export function MainTeams({
               onSubmit={findTeamMate}
             >
               <label htmlFor="search">
+                <p className="sr-only">search mate</p>
                 <input
                   type="text"
                   name="search"
+                  id="search"
                   placeholder="Type your mate email.."
                   className="pl-2 p-2 max-w-[150px] text-[.6rem] outline-none"
                 />
@@ -179,6 +182,7 @@ export function MainTeams({
                 type="submit"
                 className="bg-primary p-2 rounded-[50%] ml-4"
               >
+                <p className="sr-only">search mate</p>
                 {loading ? (
                   <AiOutlineLoading className="text-white animate-loading" />
                 ) : (
@@ -234,6 +238,7 @@ export function MainTeams({
             type="button"
             className="p-2 bg-primary rounded-[50%] shadow-lg"
           >
+            <p className="sr-only">bell</p>
             <FaBell className="text-white h-4 w-4 " />
           </button>
         </div>
