@@ -187,40 +187,44 @@ export function MainTeams({
               </button>
             </form>
           </div>
-          {userFound._id && (
+          {userFound && (
             <>
-              <p className="text-[.9rem]">User found</p>
-              <button
-                className="flex items-center gap-2 mx-2"
-                onClick={startNewConversation}
-              >
-                {userFound._id === "s3nt" ? (
-                  <p className="text-[.6rem] flex">
-                    {userFound.email}{" "}
-                    <FaCheck className="text-green-500 ml-2" />
-                  </p>
-                ) : (
-                  <>
-                    <div className="bg-primary text-white p-2 rounded-[50%] w-[30px] h-[30px] flex justify-center items-center">
-                      {" "}
-                      <span className="text-[.7rem]">
-                        {userFound.email.slice(0, 1).toLocaleUpperCase()}
-                      </span>
-                      <span className="text-[.7rem]">
-                        {userFound.email.slice(1, 2).toLocaleUpperCase()}
-                      </span>
-                    </div>
-                    <p className="text-[.6rem]">{userFound.email}</p>
-                    <span className="p-2 rounded-[50%] bg-hover">
-                      {loading2 ? (
-                        <AiOutlineLoading className="text-white animate-loading" />
-                      ) : (
-                        <IoMdPersonAdd className="text-white" />
-                      )}
-                    </span>
-                  </>
-                )}
-              </button>
+              {userFound._id && (
+                <>
+                  <p className="text-[.9rem]">User found</p>
+                  <button
+                    className="flex items-center gap-2 mx-2"
+                    onClick={startNewConversation}
+                  >
+                    {userFound._id === "s3nt" ? (
+                      <p className="text-[.6rem] flex">
+                        {userFound.email}{" "}
+                        <FaCheck className="text-green-500 ml-2" />
+                      </p>
+                    ) : (
+                      <>
+                        <div className="bg-primary text-white p-2 rounded-[50%] w-[30px] h-[30px] flex justify-center items-center">
+                          {" "}
+                          <span className="text-[.7rem]">
+                            {userFound.email.slice(0, 1).toLocaleUpperCase()}
+                          </span>
+                          <span className="text-[.7rem]">
+                            {userFound.email.slice(1, 2).toLocaleUpperCase()}
+                          </span>
+                        </div>
+                        <p className="text-[.6rem]">{userFound.email}</p>
+                        <span className="p-2 rounded-[50%] bg-hover">
+                          {loading2 ? (
+                            <AiOutlineLoading className="text-white animate-loading" />
+                          ) : (
+                            <IoMdPersonAdd className="text-white" />
+                          )}
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </>
+              )}
             </>
           )}
         </div>
@@ -236,19 +240,29 @@ export function MainTeams({
       </section>
 
       <section className="flex flex-col-reverse md:flex-row border-1 gap-2 mt-5 shadow-lg shadow-gray-300 rounded-[10px] p-2 ">
-        <section className="flex  flex-row md:flex-col gap-2 border-r-[1px] border-gray-200 md:h-[300px] md:w-[200px]">
+        <section className="flex  md:flex-col gap-2 border-r-[1px] border-gray-200 md:h-[300px] md:w-[200px]">
           {updatedConversations.length > 0 ? (
-            <div>
-              {updatedConversations.map((conversation: any, index: any) => (
-                <button
-                  key={`a${index}`}
-                  type="button"
-                  className="bg-orange-400 text-white text-[.5rem] rounded-[50%] p-4 w-10 h-10 flex justify-center items-center my-2"
-                  onClick={() => setChatConversation(conversation)}
-                >
-                  Chat <span>{index + 1}</span>
-                </button>
-              ))}
+            <div
+              className="flex gap-3 overflow-y-auto  w-full"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "#615ECC #fff",
+              }}
+            >
+              {updatedConversations.map((conversation: any, index: any) => {
+                return (
+                  <>
+                    <button
+                      key={`a${index}`}
+                      type="button"
+                      className={`bg-[#d849a4] text-white text-[.5rem] rounded-[50%] p-4 w-10 h-10 flex justify-center items-center my-2`}
+                      onClick={() => setChatConversation(conversation)}
+                    >
+                      Chat <span> {index + 1}</span>
+                    </button>
+                  </>
+                );
+              })}
             </div>
           ) : (
             <p className="text-[.7rem]">Start Adding your friends</p>

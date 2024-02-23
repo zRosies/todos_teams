@@ -41,7 +41,7 @@ const HandleUpdateTodo = ({
   return (
     <>
       <div
-        className="absolute left-0 top-0 bg-[rgba(0,0,0,0.4)] w-full h-full z-10"
+        className="fixed left-0 top-0 bg-[rgba(0,0,0,0.4)] w-full h-full z-10"
         onClick={() => openTodoCard([])}
       ></div>
       <form
