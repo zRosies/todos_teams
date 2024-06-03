@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Todo | Todos",
-  description: "Todo website, log in and  start organizing your day.",
+  description: "Todo website, start organizing your day.",
 };
 
 export default async function Category(context: any) {

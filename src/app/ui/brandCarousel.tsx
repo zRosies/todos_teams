@@ -17,7 +17,7 @@ export default function BrandCarousel() {
       {/* Consite em criar 2 divs com  os mesmos logos, um do lado do outro
        e assim que o primeiro div desaparece o segundo entra na tela porque está ao lado, e assim successivamente.
      Os elementos after e before são apenas para efeito de suavidade */}
-      <section className=" whitespace-nowrap overflow-hidden relative justify-center before:content-[''] before:bg-gradient-to-r from-white to-transparent  before:absolute before:left-0 before:top-0 before:w-[200px] before:h-full after:content-[''] after:bg-gradient-to-l after:from-white after:to-transparent  after:absolute after:right-0 after:top-0 after:w-[200px] after:h-full before:z-20 group">
+      <section className=" group-hover:animate-none whitespace-nowrap overflow-hidden relative justify-center before:content-[''] before:bg-gradient-to-r from-white to-transparent  before:absolute before:left-0 before:top-0 before:w-[200px] before:h-full after:content-[''] after:bg-gradient-to-l after:from-white after:to-transparent  after:absolute after:right-0 after:top-0 after:w-[200px] after:h-full before:z-20 group">
         {brands.map((brand) => (
           <div
             key={brand.name}
